@@ -15,7 +15,7 @@ export default function Home() {
     <div className="font-sans bg-gray-50 min-h-screen flex flex-col items-center justify-center px-6 py-12 sm:px-12">
     {data ? (
       <div className="grid gap-8 w-full max-w-6xl">
-        {data.map((user: any) => (
+        {data.map((user) => (
           <div
             key={user.id}
             className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 transition hover:shadow-md"
