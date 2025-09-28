@@ -160,7 +160,7 @@ import ClientLayout from './ClientLayout';
 
 export const metadata = {
   title: 'Ppoint',
-  description: 'Pin Points, perfect property',
+  description: 'Pin Pointing perfect property',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
