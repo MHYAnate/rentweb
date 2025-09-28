@@ -159,8 +159,8 @@
 import ClientLayout from './ClientLayout';
 
 export const metadata = {
-  title: 'PropertyHub',
-  description: 'Find your perfect property',
+  title: 'Ppoint',
+  description: 'Pin Points, perfect property',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

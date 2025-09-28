@@ -26,14 +26,14 @@ const Header: React.FC = () => {
   };
 
   const navItems = [
-    { label: 'Properties', href: '/properties', icon: Home },
+    { label: 'Properties', href: '/dashboard/propertiess', icon: Home },
     ...(isAuthenticated
       ? [
-          { label: 'Favorites', href: '/favorites', icon: Heart },
+          { label: 'Favorites', href: '/dashboard/favorites', icon: Heart },
           ...(user?.role !== 'CLIENT'
-            ? [{ label: 'Add Property', href: '/properties/create', icon: PlusCircle }]
+            ? [{ label: 'Add Property', href: '/dashboard/propertiess/create', icon: PlusCircle }]
             : []),
-          { label: 'Profile', href: '/profile', icon: User },
+          { label: 'Profile', href: '/dashboard/profile', icon: User },
         ]
       : []),
   ];
