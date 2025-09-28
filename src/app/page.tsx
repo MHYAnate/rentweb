@@ -1,43 +1,329 @@
-"use client";
-import { useEffect, useState } from "react";
+// "use client";
+// import { useEffect, useState } from "react";
 
-export default function Home() {
-  const [data, setData] = useState<{ id: string; email: string; firstName: string; lastName: string; role: string; isEmailVerified: boolean; verificationStatus: string; createdAt: string; updatedAt: string; }[] | null>(null);
+// export default function Home() {
+//   const [data, setData] = useState<{ id: string; email: string; firstName: string; lastName: string; role: string; isEmailVerified: boolean; verificationStatus: string; createdAt: string; updatedAt: string; }[] | null>(null);
 
-  useEffect(() => {
-    fetch('https://rent-neon.vercel.app')
-      .then(res => res.json())
-      .then(data => setData(data))
-      .catch(err => console.error('Error fetching data:', err));
-  }, []);
+//   useEffect(() => {
+//     fetch('https://rent-neon.vercel.app')
+//       .then(res => res.json())
+//       .then(data => setData(data))
+//       .catch(err => console.error('Error fetching data:', err));
+//   }, []);
   
+//   return (
+//     <div className="font-sans bg-gray-50 min-h-screen flex flex-col items-center justify-center px-6 py-12 sm:px-12">
+//     {data ? (
+//       <div className="grid gap-8 w-full max-w-6xl">
+//         {data.map((user) => (
+//           <div
+//             key={user.id}
+//             className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 transition hover:shadow-md"
+//           >
+//             <h2 className="text-lg font-semibold text-gray-800 mb-4">User Profile</h2>
+//             <div className="space-y-2 text-sm text-gray-700">
+//               <p><span className="font-medium text-gray-600">ID:</span> {user.id}</p>
+//               <p><span className="font-medium text-gray-600">Email:</span> {user.email}</p>
+//               <p><span className="font-medium text-gray-600">First Name:</span> {user.firstName}</p>
+//               <p><span className="font-medium text-gray-600">Last Name:</span> {user.lastName}</p>
+//               <p><span className="font-medium text-gray-600">Role:</span> {user.role}</p>
+//               <p><span className="font-medium text-gray-600">Email Verified:</span> {user.isEmailVerified ? "Yes" : "No"}</p>
+//               <p><span className="font-medium text-gray-600">Verification Status:</span> {user.verificationStatus}</p>
+//               <p><span className="font-medium text-gray-600">Created At:</span> {new Date(user.createdAt).toLocaleString()}</p>
+//               <p><span className="font-medium text-gray-600">Updated At:</span> {new Date(user.updatedAt).toLocaleString()}</p>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     ) : (
+//       <p className="text-gray-500 text-lg">Loading user data...</p>
+//     )}
+//   </div>
+//   );
+// }
+
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { useLandingData } from '../hooks/useProperties';
+import PropertyCard from '../components/Properties/PropertyCard';
+import SearchFilters from '../components/Properties/SearchFilters';
+import { 
+  TrendingUp, 
+  Users, 
+  Building, 
+  Eye,
+  Star,
+  ArrowRight,
+  MapPin
+} from 'lucide-react';
+
+const HomePage: React.FC = () => {
+  const [filters, setFilters] = useState({});
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  const { data: landingData, isLoading } = useLandingData({
+    ...filters,
+    search: searchQuery,
+    limit: 12,
+  });
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
+
+  const { properties, featuredProperties, metrics, pagination } = landingData || {};
+
   return (
-    <div className="font-sans bg-gray-50 min-h-screen flex flex-col items-center justify-center px-6 py-12 sm:px-12">
-    {data ? (
-      <div className="grid gap-8 w-full max-w-6xl">
-        {data.map((user) => (
-          <div
-            key={user.id}
-            className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 transition hover:shadow-md"
-          >
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">User Profile</h2>
-            <div className="space-y-2 text-sm text-gray-700">
-              <p><span className="font-medium text-gray-600">ID:</span> {user.id}</p>
-              <p><span className="font-medium text-gray-600">Email:</span> {user.email}</p>
-              <p><span className="font-medium text-gray-600">First Name:</span> {user.firstName}</p>
-              <p><span className="font-medium text-gray-600">Last Name:</span> {user.lastName}</p>
-              <p><span className="font-medium text-gray-600">Role:</span> {user.role}</p>
-              <p><span className="font-medium text-gray-600">Email Verified:</span> {user.isEmailVerified ? "Yes" : "No"}</p>
-              <p><span className="font-medium text-gray-600">Verification Status:</span> {user.verificationStatus}</p>
-              <p><span className="font-medium text-gray-600">Created At:</span> {new Date(user.createdAt).toLocaleString()}</p>
-              <p><span className="font-medium text-gray-600">Updated At:</span> {new Date(user.updatedAt).toLocaleString()}</p>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-indigo-900 via-indigo-800 to-purple-800 text-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              Find Your Perfect
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
+                Property
+              </span>
+            </h1>
+            <p className="text-xl md:text-2xl text-indigo-100 max-w-3xl mx-auto">
+              Discover amazing properties for rent and sale across Nigeria. 
+              Your dream home is just a click away.
+            </p>
+          </div>
+
+          {/* Quick Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-yellow-400 mb-2">
+                {metrics?.totalProperties?.toLocaleString() || '0'}
+              </div>
+              <div className="text-indigo-200">Properties</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-green-400 mb-2">
+                {metrics?.availableProperties?.toLocaleString() || '0'}
+              </div>
+              <div className="text-indigo-200">Available</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-blue-400 mb-2">
+                {(metrics?.totalLandlords + metrics?.totalAgents)?.toLocaleString() || '0'}
+              </div>
+              <div className="text-indigo-200">Agents & Landlords</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-purple-400 mb-2">
+                {metrics?.totalViews?.toLocaleString() || '0'}
+              </div>
+              <div className="text-indigo-200">Property Views</div>
             </div>
           </div>
-        ))}
-      </div>
-    ) : (
-      <p className="text-gray-500 text-lg">Loading user data...</p>
-    )}
-  </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/properties"
+              className="bg-white text-indigo-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2"
+            >
+              <span>Browse Properties</span>
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link
+              href="/register"
+              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-indigo-900 transition-colors text-center"
+            >
+              Join PropertyHub
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Search Section */}
+      <section className="py-12 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SearchFilters
+            filters={filters}
+            onFiltersChange={setFilters}
+            onSearch={handleSearch}
+          />
+        </div>
+      </section>
+
+      {/* Featured Properties */}
+      {featuredProperties && featuredProperties.length > 0 && (
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                  Featured Properties
+                </h2>
+                <p className="text-gray-600">
+                  Hand-picked properties that offer exceptional value
+                </p>
+              </div>
+              <Link
+                href="/properties?isFeatured=true"
+                className="text-indigo-600 hover:text-indigo-700 font-medium flex items-center space-x-1"
+              >
+                <span>View All</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredProperties.slice(0, 6).map((property: any) => (
+                <PropertyCard key={property.id} property={property} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Recent Properties */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                Latest Properties
+              </h2>
+              <p className="text-gray-600">
+                Recently added properties in your area
+              </p>
+            </div>
+            <Link
+              href="/properties"
+              className="text-indigo-600 hover:text-indigo-700 font-medium flex items-center space-x-1"
+            >
+              <span>View All</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {properties && properties.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {properties.map((property: any) => (
+                <PropertyCard key={property.id} property={property} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <Building className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                No properties found
+              </h3>
+              <p className="text-gray-600">
+                Try adjusting your search filters or check back later.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Top Cities */}
+      {metrics?.topCities && metrics.topCities.length > 0 && (
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+              Popular Cities
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {metrics.topCities.map((city: any, index: number) => (
+                <Link
+                  key={city.city}
+                  href={`/properties?city=${encodeURIComponent(city.city)}`}
+                  className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 text-center border border-gray-200"
+                >
+                  <MapPin className="w-8 h-8 text-indigo-600 mx-auto mb-3" />
+                  <h3 className="font-semibold text-gray-900 mb-1">
+                    {city.city}
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    {city.count} properties
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Platform Stats */}
+      <section className="py-16 bg-indigo-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Why Choose PropertyHub?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Join thousands of satisfied users who have found their perfect properties through our platform
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Building className="w-8 h-8 text-indigo-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Verified Properties
+              </h3>
+              <p className="text-gray-600">
+                All properties are verified by our team for authenticity and quality
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Trusted Agents
+              </h3>
+              <p className="text-gray-600">
+                Work with verified and experienced real estate professionals
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Star className="w-8 h-8 text-yellow-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Quality Service
+              </h3>
+              <p className="text-gray-600">
+                Exceptional customer service and support throughout your journey
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <TrendingUp className="w-8 h-8 text-purple-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Market Insights
+              </h3>
+              <p className="text-gray-600">
+                Get access to real-time market data and property analytics
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
-}
+};
+
+export default HomePage;
