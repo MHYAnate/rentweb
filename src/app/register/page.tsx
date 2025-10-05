@@ -12,7 +12,7 @@ import { Eye, EyeOff, Home } from 'lucide-react';
 const schema = yup.object({
   firstName: yup.string().required('First name is required'),
   lastName: yup.string().required('Last name is required'),
-  email: yup.string().email('Invalid email').required('Email is required'),
+  email: yup.string().email('Invalid email').optional(),
   phone: yup.string().required('Phone number is required'),
   password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
   confirmPassword: yup.string()
@@ -35,7 +35,7 @@ const RegisterPage: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormData>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
     defaultValues: {
       role: 'CLIENT',
     },
@@ -118,9 +118,45 @@ const RegisterPage: React.FC = () => {
               </div>
             </div>
 
-            <div>
+            {/* <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email address
+              </label>
+              <div className="mt-1">
+                <input
+                  {...register('email')}
+                  type="email"
+                  autoComplete="email"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  placeholder="Enter your email"
+                />
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                )}
+              </div>
+            </div> */}
+
+            {/* <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                Phone number (optional)
+              </label>
+              <div className="mt-1">
+                <input
+                  {...register('phone')}
+                  type="tel"
+                  autoComplete="tel"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  placeholder="Enter your phone number"
+                />
+                {errors.phone && (
+                  <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
+                )}
+              </div>
+            </div> */}
+
+<div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email address (optional)
               </label>
               <div className="mt-1">
                 <input
@@ -138,7 +174,7 @@ const RegisterPage: React.FC = () => {
 
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                Phone number (optional)
+                Phone number
               </label>
               <div className="mt-1">
                 <input
