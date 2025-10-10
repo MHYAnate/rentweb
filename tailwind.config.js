@@ -88,6 +88,7 @@ export default {
           800: '#262626',
           900: '#171717',
         }
+
       },
       fontFamily: {
         sans: [

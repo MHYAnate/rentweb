@@ -14,6 +14,7 @@ import {
   ArrowRight,
   MapPin
 } from 'lucide-react';
+import { PremiumCarousel } from '@/components/carousel/carousel';
 
 const HomePage: React.FC = () => {
   const [filters, setFilters] = useState({});
@@ -42,66 +43,8 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-indigo-900 via-indigo-800 to-purple-800 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Find Your Perfect
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
-                Property
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl text-indigo-100 max-w-3xl mx-auto">
-              Discover amazing properties for rent and sale across Nigeria. 
-              Your dream home is just a click away.
-            </p>
-          </div>
-
-          {/* Quick Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-yellow-400 mb-2">
-                {metrics?.totalProperties?.toLocaleString() || '0'}
-              </div>
-              <div className="text-indigo-200">Properties</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-green-400 mb-2">
-                {metrics?.availableProperties?.toLocaleString() || '0'}
-              </div>
-              <div className="text-indigo-200">Available</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-blue-400 mb-2">
-                {(metrics?.totalLandlords + metrics?.totalAgents)?.toLocaleString() || '0'}
-              </div>
-              <div className="text-indigo-200">Agents & Landlords</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-purple-400 mb-2">
-                {metrics?.totalViews?.toLocaleString() || '0'}
-              </div>
-              <div className="text-indigo-200">Property Views</div>
-            </div>
-          </div>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/properties"
-              className="bg-white text-indigo-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2"
-            >
-              <span>Browse Properties</span>
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-            <Link
-              href="/register"
-              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-indigo-900 transition-colors text-center"
-            >
-              Join PropertyHub
-            </Link>
-          </div>
-        </div>
+      <section className=" text-white bg-amber-500">
+   <PremiumCarousel/>
       </section>
 
       {/* Search Section */}

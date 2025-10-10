@@ -70,6 +70,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   //     throw error;
   //   }
   // };
+  
   const login = async (phone: string, password: string) => {
     try {
       const response = await authAPI.login({ phone, password });
