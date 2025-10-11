@@ -5,6 +5,7 @@ import DashboardLayout from '../../../components/Dashboard/DashboardLayout';
 import { useFavorites } from '../../../hooks/useFavorites';
 import PropertyCard from '../../../components/Properties/PropertyCard';
 import { Heart, Filter, Grid2x2 as Grid, List, Search, Calendar } from 'lucide-react';
+import Link from 'next/link';
 
 const FavoritesPage: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -161,12 +162,12 @@ const FavoritesPage: React.FC = () => {
               }
             </p>
             {favorites.length === 0 && (
-              <a
+              <Link
                 href="/properties"
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
               >
                 Browse Properties
-              </a>
+              </Link>
             )}
           </div>
         ) : (

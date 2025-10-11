@@ -539,7 +539,7 @@ export default function PropertiesPage({
                 </h2>
                 {filters.search && (
                   <p className="text-gray-600 text-sm mt-1">
-                    Search results for "{filters.search}"
+                     {`Search results for  "${filters.search}"`}
                   </p>
                 )}
               </div>

@@ -174,6 +174,7 @@ import { PropertyGallery } from '@/components/Properties/propertyGallary';
 import { PropertyDetails } from '@/components/Properties/propertyDetails';
 import { PropertySidebar } from '@/components/Properties/propertySideBar';
 import { SimilarProperties } from '@/components/Properties/similarProperties';
+import Link from 'next/link';
 
 export default function PropertyPage({
   params,
@@ -219,14 +220,15 @@ export default function PropertyPage({
             Property Not Found
           </h2>
           <p className="text-gray-600 mb-6">
-            The property you're looking for doesn't exist or has been removed.
+            {`The property you're looking for doesn't exist or has been removed.`}
+            
           </p>
-          <a
+          <Link
             href="/properties"
             className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Browse All Properties
-          </a>
+          </Link>
         </div>
       </div>
     );
