@@ -55,12 +55,23 @@ const Header: React.FC = () => {
 					</Link>
 
 					{/* Desktop Navigation */}
-					<nav className="hidden md:flex items-center space-x-8">
+					<nav className="hidden md:flex items-center space-x-8 bg-[#FFD700] bg-gradient-to-br from-[#FFD700] via-[#FFD700] to-[#C28840] shadow-[inset_0_0_60px_rgba(255,255,255,0.2)]text-white px-4 py-2 rounded-lg hover:bg-[#FFD700] transition-colors text-center"
+									>
 						{navItems.map((item) => (
 							<Link
 								key={item.href}
 								href={item.href}
-								className="flex items-center space-x-1 text-gray-700 hover:text-[#FFD700] transition-colors"
+								className="flex items-center space-x-1 text-gray-700 hover:text-white transition-colors px-2 rounded-md"
+								onMouseEnter={(e) => {
+									
+									e.currentTarget.style.boxShadow =
+										"0 20px 25px -5px rgba(0, 0, 0, 0.4)";
+								}}
+								onMouseLeave={(e) => {
+									
+									e.currentTarget.style.boxShadow =
+										"0 0px 0px 0px rgba(0, 0, 0, 0)";
+								}}
 							>
 								<item.icon className="w-4 h-4" />
 								<span>{item.label}</span>
@@ -102,6 +113,16 @@ const Header: React.FC = () => {
 								<Link
 									href="/register"
 								className="bg-[#C28840] bg-gradient-to-br from-[#C28840] via-[#FFD700] to-[#C28840] shadow-[inset_0_0_60px_rgba(255,255,255,0.2)]text-white px-4 py-2 rounded-lg hover:bg-[#FFD700] transition-colors text-center"
+								onMouseEnter={(e) => {
+							
+									e.currentTarget.style.boxShadow =
+										"0 20px 25px -5px rgba(0, 0, 0, 0.4)";
+								}}
+								onMouseLeave={(e) => {
+								
+									e.currentTarget.style.boxShadow =
+										"0 10px 15px -3px rgba(0, 0, 0, 0.3)";
+								}}
 								>
 									Sign Up
 								</Link>
@@ -142,6 +163,16 @@ const Header: React.FC = () => {
 								<button
 									onClick={handleLogout}
 									className="flex items-center space-x-2 text-gray-700 hover:text-red-600 transition-colors"
+									onMouseEnter={(e) => {
+								
+										e.currentTarget.style.boxShadow =
+											"0 20px 25px -5px rgba(0, 0, 0, 0.4)";
+									}}
+									onMouseLeave={(e) => {
+							
+										e.currentTarget.style.boxShadow =
+											"0 10px 15px -3px rgba(0, 0, 0, 0.3)";
+									}}
 								>
 									<LogOut className="w-4 h-4" />
 									<span>Logout</span>
@@ -159,6 +190,16 @@ const Header: React.FC = () => {
 										href="/register"
 										onClick={() => setIsMobileMenuOpen(false)}
 										className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors text-center"
+										onMouseEnter={(e) => {
+								
+											e.currentTarget.style.boxShadow =
+												"0 20px 25px -5px rgba(0, 0, 0, 0.4)";
+										}}
+										onMouseLeave={(e) => {
+										
+											e.currentTarget.style.boxShadow =
+												"0 10px 15px -3px rgba(0, 0, 0, 0.3)";
+										}}
 									>
 										Sign Up
 									</Link>

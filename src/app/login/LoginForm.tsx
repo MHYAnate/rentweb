@@ -10,15 +10,14 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Eye, EyeOff, Home } from 'lucide-react';
 
 const schema = yup.object({
-  // email: yup.string().email('Invalid email').required('Email is required'),
-  // password: yup.string().required('Password is required'),
+
   phone: yup.string().required('Phone number is required'),
   password: yup.string().required('Password is required'),
 });
 
 type LoginFormData = yup.InferType<typeof schema>;
 
-const LoginPage: React.FC = () => {
+const LoginPage: React.FC = () => {2
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
@@ -35,17 +34,8 @@ const LoginPage: React.FC = () => {
     resolver: yupResolver(schema),
   });
 
-  // const onSubmit = async (data: LoginFormData) => {
-  //   setIsLoading(true);
-  //   try {
-  //     await login(data.email, data.password);
-  //     router.replace(from);
-  //   } catch (error) {
-  //     // Error is handled by the auth context
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+
+
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
     try {
