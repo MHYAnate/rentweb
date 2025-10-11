@@ -58,7 +58,13 @@ export const landingAPI = {
 export const propertiesAPI = {
   getAll: (params?: any) => api.get('/properties', { params }),
   getById: (id: string, params?: any) => api.get(`/properties/${id}`, { params }),
-  create: (data: any) => api.post('/properties', data),
+  // create: (data: any) => api.post('/properties', data),
+  create: async (formData:any) => {
+    // Axios automatically sets the 'Content-Type' to 'multipart/form-data'
+    // when you pass a FormData object, so you don't need to set it manually.
+    const { data } = await api.post('/properties', formData);
+    return data;
+  },
   update: (id: string, data: any) => api.put(`/properties/${id}`, data),
   delete: (id: string) => api.delete(`/properties/${id}`),
   getSimilar: (id: string, params?: any) => api.get(`/properties/${id}/similar`, { params }),

@@ -129,18 +129,44 @@ export const useLandingData = (params?: any) => {
   });
 };
 
+// export const useCreateProperty = () => {
+//   const queryClient = useQueryClient();
+  
+//   return useMutation({
+//     mutationFn: propertiesAPI.create,
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({ queryKey: ['properties'] });
+//       queryClient.invalidateQueries({ queryKey: ['landing'] });
+//       toast.success('Property created successfully!');
+//     },
+//     onError: (error: any) => {
+//       toast.error(error.response?.data?.message || 'Failed to create property');
+//     },
+//   });
+// };
+
 export const useCreateProperty = () => {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: propertiesAPI.create,
+    // The mutation function calls the API service
+    mutationFn: (formData) => propertiesAPI.create(formData),
+    
+    // On success, invalidate queries to trigger a refetch of property data
     onSuccess: () => {
+      // This will refetch any queries with the key 'properties'
       queryClient.invalidateQueries({ queryKey: ['properties'] });
+      
+      // You might also want to refetch landing page data if it displays properties
       queryClient.invalidateQueries({ queryKey: ['landing'] });
-      toast.success('Property created successfully!');
+      
+      toast.success('Property listing created successfully!');
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.message || 'Failed to create property');
+
+    // On error, display an informative toast message
+    onError: (error) => {
+      const errorMessage = error.message || 'Failed to create property. Please try again.';
+      toast.error(errorMessage);
     },
   });
 };
