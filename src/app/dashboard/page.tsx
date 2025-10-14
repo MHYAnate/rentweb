@@ -597,13 +597,13 @@ const PropertyManagement: React.FC = () => {
           <h1 className="text-2xl font-bold text-gray-900">Property Management</h1>
           <p className="text-gray-600">Manage your property listings and track performance</p>
         </div>
-        <Link
+        {/* <Link
           href="/dashboard/properties/create"
           className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           <Plus className="w-4 h-4 mr-2" />
           Add Property
-        </Link>
+        </Link> */}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">

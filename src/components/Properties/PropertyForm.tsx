@@ -190,7 +190,7 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                 <label className="block text-sm font-medium mb-2">Title *</label>
                 <input
                   {...register('title', { required: 'Title is required' })}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Beautiful 3-bedroom apartment"
                 />
                 {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
@@ -200,9 +200,9 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                 <label className="block text-sm font-medium mb-2">Property Type *</label>
                 <select
                   {...register('type', { required: 'Property type is required' })}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
-                  <option value="">Select Type</option>
+                  <option className='text-black' value="">Select Type</option>
                   {PROPERTY_TYPES.map(type => (
                     <option key={type} value={type}>{type}</option>
                   ))}
@@ -214,11 +214,11 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                 <label className="block text-sm font-medium mb-2">Listing Type *</label>
                 <select
                   {...register('listingType', { required: 'Listing type is required' })}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Select Listing Type</option>
                   {LISTING_TYPES.map(type => (
-                    <option key={type} value={type}>{type}</option>
+                    <option className='text-black' key={type} value={type}>{type}</option>
                   ))}
                 </select>
                 {errors.listingType && <p className="text-red-500 text-sm mt-1">{errors.listingType.message}</p>}
@@ -232,7 +232,7 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                     required: 'Price is required',
                     min: { value: 0, message: 'Price must be positive' }
                   })}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="0.00"
                 />
                 {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price.message}</p>}
@@ -244,7 +244,7 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
               <textarea
                 {...register('description', { required: 'Description is required' })}
                 rows={4}
-                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Describe your property in detail..."
               />
               {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>}
@@ -272,7 +272,7 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                 <label className="block text-sm font-medium mb-2">Address *</label>
                 <input
                   {...register('address', { required: 'Address is required' })}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="123 Main Street"
                 />
                 {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address.message}</p>}
@@ -282,7 +282,7 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                 <label className="block text-sm font-medium mb-2">City *</label>
                 <input
                   {...register('city', { required: 'City is required' })}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Lagos"
                 />
                 {errors.city && <p className="text-red-500 text-sm mt-1">{errors.city.message}</p>}
@@ -292,7 +292,7 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                 <label className="block text-sm font-medium mb-2">State *</label>
                 <input
                   {...register('state', { required: 'State is required' })}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Lagos State"
                 />
                 {errors.state && <p className="text-red-500 text-sm mt-1">{errors.state.message}</p>}
@@ -302,7 +302,7 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                 <label className="block text-sm font-medium mb-2">Zip Code</label>
                 <input
                   {...register('zipCode')}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="100001"
                 />
               </div>
@@ -312,7 +312,7 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                 <input
                   type="number"
                   {...register('bedrooms')}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="3"
                 />
               </div>
@@ -322,7 +322,7 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                 <input
                   type="number"
                   {...register('bathrooms')}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="2"
                 />
               </div>
@@ -332,7 +332,7 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                 <input
                   type="number"
                   {...register('area')}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="1500"
                 />
               </div>
@@ -342,7 +342,7 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                 <input
                   type="number"
                   {...register('yearBuilt')}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="2020"
                 />
               </div>
@@ -355,7 +355,7 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                   type="number"
                   step="any"
                   {...register('latitude')}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="6.5244"
                 />
               </div>
@@ -366,7 +366,7 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                   type="number"
                   step="any"
                   {...register('longitude')}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="text-black w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="3.3792"
                 />
               </div>
@@ -457,7 +457,7 @@ export default function PropertyForm({ property = null, onSuccess }: PropertyFor
                 multiple
                 accept="image/*"
                 onChange={handleImageChange}
-                className="w-full p-3 border border-dashed rounded-lg"
+                className="text-black w-full p-3 border border-dashed rounded-lg"
                 disabled={imageFiles.length + existingImages.length >= 10}
               />
               <p className="text-sm text-gray-500 mt-1">

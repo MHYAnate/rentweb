@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import DashboardLayout from '../../../components/Dashboard/DashboardLayout';
 import { useFavorites } from '../../../hooks/useFavorites';
 import PropertyCard from '../../../components/Properties/PropertyCard';
 import { Heart, Filter, Grid2x2 as Grid, List, Search, Calendar } from 'lucide-react';
@@ -36,10 +35,6 @@ const FavoritesPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <DashboardLayout
-        title="Saved Properties"
-        subtitle="Properties you've marked as favorites"
-      >
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {Array.from({ length: 8 }).map((_, index) => (
@@ -54,16 +49,11 @@ const FavoritesPage: React.FC = () => {
             ))}
           </div>
         </div>
-      </DashboardLayout>
     );
   }
 
   if (error) {
     return (
-      <DashboardLayout
-        title="Saved Properties"
-        subtitle="Properties you've marked as favorites"
-      >
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="text-center py-12">
             <Heart className="w-16 h-16 text-gray-300 mx-auto mb-4" />
@@ -75,15 +65,11 @@ const FavoritesPage: React.FC = () => {
             </p>
           </div>
         </div>
-      </DashboardLayout>
     );
   }
 
   return (
-    <DashboardLayout
-      title="Saved Properties"
-      subtitle={`${favorites.length} properties in your favorites`}
-      action={
+    <>
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
             <button
@@ -104,8 +90,7 @@ const FavoritesPage: React.FC = () => {
             </button>
           </div>
         </div>
-      }
-    >
+  
       <div className="px-4 sm:px-6 lg:px-8">
         {/* Filters */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
@@ -249,7 +234,8 @@ const FavoritesPage: React.FC = () => {
           </>
         )}
       </div>
-    </DashboardLayout>
+      </>
+
   );
 };
 
