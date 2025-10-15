@@ -518,7 +518,7 @@ const PropertyManagement: React.FC = () => {
     select: (response) => response.data.data,
   });
 
-  const properties = propertiesData?.data || [];
+  const properties = propertiesData || [];
 
   const filteredProperties = properties.filter((property: any) => {
     const matchesSearch = property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
