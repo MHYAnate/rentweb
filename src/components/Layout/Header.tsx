@@ -42,17 +42,16 @@ const Header: React.FC = () => {
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="flex justify-between items-center h-16">
 					{/* Logo */}
-					<Link href="/" className="flex items-center space-x-2">
-						{/* <Home className="w-8 h-8 text-indigo-600" /> */}
-						{/* <span className="text-xl font-bold text-gray-900">Ppoint</span> */}
-						<Image
-							src="/image/plogo.png"
-							alt="imageLogo"
-							width={70}
-							height={40}
-							className="w-full rounded-md"
-						/>
-					</Link>
+					<Link href="/" className="flex items-center h-full">
+  <Image
+    src="/image/plogo.png"
+    alt="imageLogo"
+    width={70}
+    height={20}
+    className="h-full object-contain rounded-md"
+  />
+</Link>
+
 
 					{/* Desktop Navigation */}
 					<nav className="hidden md:flex items-center space-x-8 bg-[#FFD700] bg-gradient-to-br from-[#FFD700] via-[#FFD700] to-[#C28840] shadow-[inset_0_0_60px_rgba(255,255,255,0.2)]text-white px-4 py-2 rounded-lg hover:bg-[#FFD700] transition-colors text-center"
