@@ -68,7 +68,8 @@ const ClientDashboard = () => {
           Welcome back!
         </h1>
         <p className="text-indigo-100">
-          Ready to find your perfect property? Here's what's happening today.
+          {`  Ready to find your perfect property? Here's what's happening today.`}
+        
         </p>
       </div>
 
