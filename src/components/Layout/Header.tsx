@@ -46,7 +46,7 @@ const Header: React.FC = () => {
   <Image
     src="/image/plogo.png"
     alt="imageLogo"
-    width={70}
+    width={100}
     height={20}
     className="h-full object-contain rounded-md"
   />

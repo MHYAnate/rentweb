@@ -1,12 +1,110 @@
+// 'use client';
+
+// import React, { useState } from 'react';
+// import { useQuery } from '@tanstack/react-query';
+// import { authAPI } from '@/services/api';
+// import { useAuth } from '@/contexts/AuthContext';
+// import { Building, Plus, Search, CreditCard as Edit3, Trash2, Eye, Heart, MapPin, Calendar, DollarSign, TrendingUp, Users, Star, CheckCircle, Clock, AlertCircle } from 'lucide-react';
+// import Link from 'next/link';
+// import { useDeleteProperty } from '@/hooks/useProperties';
+
+// const PropertyManagement: React.FC = () => {
+//   const { user } = useAuth();
+//   const [searchTerm, setSearchTerm] = useState('');
+//   const [statusFilter, setStatusFilter] = useState('');
+//   const [typeFilter, setTypeFilter] = useState('');
+//   const [selectedProperties, setSelectedProperties] = useState<string[]>([]);
+//   const [showDeleteModal, setShowDeleteModal] = useState(false);
+//   const [propertyToDelete, setPropertyToDelete] = useState<string | null>(null);
+
+//   const deleteProperty = useDeleteProperty();
+
+//   const { data: propertiesData, isLoading, refetch } = useQuery({
+//     queryKey: ['userProperties'],
+//     queryFn: () => authAPI.getUserProperties({ limit: 50 }),
+//     select: (response) => response.data.data,
+//   });
+
+//   const properties = propertiesData || [];
+
+//   const filteredProperties = properties.filter((property: any) => {
+//     const matchesSearch = property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+//                          property.address.toLowerCase().includes(searchTerm.toLowerCase());
+//     const matchesStatus = !statusFilter || property.status === statusFilter;
+//     const matchesType = !typeFilter || property.type === typeFilter;
+
+//     return matchesSearch && matchesStatus && matchesType;
+//   });
+
+//   const handleDeleteProperty = async (propertyId: string) => {
+//     try {
+//       await deleteProperty.mutateAsync(propertyId);
+//       setShowDeleteModal(false);
+//       setPropertyToDelete(null);
+//       refetch();
+//     } catch (error) {
+//       console.error('Error deleting property:', error);
+//     }
+//   };
+
+//   const handleBulkAction = (action: string) => {
+//     console.log(`Bulk ${action} for properties:`, selectedProperties);
+//   };
+
+//   const getStatusIcon = (status: string) => {
+//     switch (status) {
+//       case 'AVAILABLE':
+//         return <CheckCircle className="w-4 h-4 text-green-500" />;
+//       case 'RENTED':
+//         return <Users className="w-4 h-4 text-blue-500" />;
+//       case 'UNDER_MAINTENANCE':
+//         return <Clock className="w-4 h-4 text-yellow-500" />;
+//       case 'UNAVAILABLE':
+//         return <AlertCircle className="w-4 h-4 text-red-500" />;
+//       default:
+//         return <Clock className="w-4 h-4 text-gray-500" />;
+//     }
+//   };
+
+//   const getStatusColor = (status: string) => {
+//     switch (status) {
+//       case 'AVAILABLE':
+//         return 'bg-green-50 text-green-700 border-green-200';
+//       case 'RENTED':
+//         return 'bg-blue-50 text-blue-700 border-blue-200';
+//       case 'UNDER_MAINTENANCE':
+//         return 'bg-yellow-50 text-yellow-700 border-yellow-200';
+//       case 'UNAVAILABLE':
+//         return 'bg-red-50 text-red-700 border-red-200';
+//       default:
+//         return 'bg-gray-50 text-gray-700 border-gray-200';
+//     }
+//   };
+
+//   const formatPrice = (price: number, currency: string) => {
+//     return new Intl.NumberFormat('en-NG', {
+//       style: 'currency',
+//       currency: currency || 'NGN',
+//       minimumFractionDigits: 0,
+//     }).format(price);
+//   };
+
+//   if (isLoading) {
+//     return (
+//       <div className="min-h-96 flex items-center justify-center">
+//         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+//       </div>
+//     );
+//   }
+
 'use client';
 
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { authAPI } from '@/services/api';
 import { useAuth } from '@/contexts/AuthContext';
 import { Building, Plus, Search, CreditCard as Edit3, Trash2, Eye, Heart, MapPin, Calendar, DollarSign, TrendingUp, Users, Star, CheckCircle, Clock, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
-import { useDeleteProperty } from '@/hooks/useProperties';
+// Import the new custom hooks
+import { useDeleteProperty, useUserProperties } from '@/hooks/useProperties';
 
 const PropertyManagement: React.FC = () => {
   const { user } = useAuth();
@@ -17,17 +115,13 @@ const PropertyManagement: React.FC = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [propertyToDelete, setPropertyToDelete] = useState<string | null>(null);
 
+  // Use the custom mutation hook for deleting
   const deleteProperty = useDeleteProperty();
+  
+  // Use the new custom hook to fetch data. It's much cleaner!
+  const { data: properties, isLoading } = useUserProperties({ limit: 50 });
 
-  const { data: propertiesData, isLoading, refetch } = useQuery({
-    queryKey: ['userProperties'],
-    queryFn: () => authAPI.getUserProperties({ limit: 50 }),
-    select: (response) => response.data.data,
-  });
-
-  const properties = propertiesData || [];
-
-  const filteredProperties = properties.filter((property: any) => {
+  const filteredProperties = (properties || []).filter((property: any) => {
     const matchesSearch = property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          property.address.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = !statusFilter || property.status === statusFilter;
@@ -38,11 +132,15 @@ const PropertyManagement: React.FC = () => {
 
   const handleDeleteProperty = async (propertyId: string) => {
     try {
+      // The mutateAsync function handles the API call
       await deleteProperty.mutateAsync(propertyId);
       setShowDeleteModal(false);
       setPropertyToDelete(null);
-      refetch();
+      // No need to call refetch() manually. 
+      // The onSuccess callback in useDeleteProperty invalidates the query, triggering an automatic refetch.
     } catch (error) {
+      // The onError callback in the hook will show a toast.
+      // You can still log the error for debugging.
       console.error('Error deleting property:', error);
     }
   };
