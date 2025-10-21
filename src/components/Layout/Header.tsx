@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../contexts/AuthContext";
-import { Home, User, Heart, PlusCircle, LogOut, Menu, X } from "lucide-react";
+import { Home, User, Heart, PlusCircle, LogOut, Menu, Plus, X } from "lucide-react";
 import Image from "next/image";
 
 const Header: React.FC = () => {
@@ -23,6 +23,7 @@ const Header: React.FC = () => {
 		...(isAuthenticated
 			? [
 					{ label: "Favorites", href: "/dashboard/favorites", icon: Heart },
+					{ label: "Dashboard", href: "/dashboard", icon: Plus },
 					...(user?.role !== "CLIENT"
 						? [
 								{

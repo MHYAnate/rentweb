@@ -15,6 +15,7 @@ import {
   MapPin
 } from 'lucide-react';
 import { PremiumCarousel } from '@/components/carousel/carousel';
+import { useAllUsers } from '@/hooks/useAdmin';
 
 const HomePage: React.FC = () => {
   const [filters, setFilters] = useState({});
@@ -25,6 +26,10 @@ const HomePage: React.FC = () => {
     search: searchQuery,
     limit: 12,
   });
+
+  const {data: usersData} = useAllUsers({});
+
+  console.log('Users Data:', usersData);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);

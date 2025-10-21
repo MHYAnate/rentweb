@@ -6,6 +6,7 @@ import ClientDashboard from '@/components/Dashboard/ClientDashboard';
 import LandlordDashboard from '@/components/Dashboard/LandlordDashboard';
 import AgentProfile from '@/components/Agent/AgentProfile';
 import { useAuth } from '@/contexts/AuthContext';
+import { AdminDashboard } from '@/components/Dashboard/admin-dashboard';
 
 const DashboardPage = () => {
   const { user } = useAuth();
@@ -19,8 +20,8 @@ const DashboardPage = () => {
       case 'AGENT':
         return <AgentProfile />;
       case 'ADMIN':
-        // return <AdminDashboard />;
-        return <div>Admin Dashboard Coming Soon</div>;
+        return <AdminDashboard />;
+        
       default:
         return <div>Invalid user role</div>;
     }

@@ -48,6 +48,25 @@ export const authAPI = {
   getUserProperties: (params?: any) => api.get('/users/properties', { params }),
 };
 
+// services/api.js
+
+export const adminAPI = {
+  // ... existing ...
+  getDashboardStats: () => api.get('/admin/dashboard'),
+  getAllUsers: (params?: any) => api.get('/admin/users', { params }),
+  getUserById: (id: any) => api.get(`/admin/users/${id}`),
+  updateUser: (id: any, data: any) => api.put(`/admin/users/${id}`, data),
+  deleteUser: (id: any) => api.delete(`/admin/users/${id}`),
+  getVerificationRequests: (params?: any) => api.get('/admin/verifications', { params }),
+  reviewVerificationRequest: (id: any, data: any) => api.put(`/admin/verifications/${id}/review`, data),
+  getAllComplaints: (params?: any) => api.get('/admin/complaints', { params }),
+  updateComplaint: (id: any, data: any) => api.put(`/admin/complaints/${id}`, data),
+  // Property management (using the same endpoints as regular property controller but with admin access)
+  getAllProperties: (params?: any) => api.get('/admin/properties', { params }),
+  updateProperty: (id: any, data: any) => api.put(`/admin/properties/${id}`, data),
+  deleteProperty: (id: any) => api.delete(`/admin/properties/${id}`),
+};
+
 // Landing API
 export const landingAPI = {
   getLandingData: (params?: any) => api.get('/landing', { params }),
