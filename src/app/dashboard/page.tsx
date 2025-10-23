@@ -21,6 +21,8 @@ const DashboardPage = () => {
         return <AgentProfile />;
       case 'ADMIN':
         return <Dashboard />;
+      case 'SUPER_ADMIN':
+        return <Dashboard />;
         
       default:
         return <div>Invalid user role</div>;
