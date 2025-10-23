@@ -788,7 +788,7 @@ export function PieChartComponent({ chartData, title, value }: iProps) {
   }));
 
   return (
-    <Card className="flex flex-col p-6 w-full h-auto shadow-lg rounded-xl border border-gray-100">
+    <Card className="flex flex-col p-6 w-full h-auto rounded-2xl border border-gray-100 shadow-md transition-all hover:shadow-xl hover:-translate-y-0.5">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h5 className="font-bold text-[#111827] text-lg">{title}</h5>

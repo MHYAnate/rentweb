@@ -108,7 +108,7 @@ export default function LineGraphComponent({ data, title = "Registration Trends"
   };
 
   return (
-    <Card className="h-full">
+    <Card className="h-full rounded-2xl border border-gray-100 shadow-md transition-all hover:shadow-xl hover:-translate-y-0.5">
       <CardContent className="p-6 h-full flex flex-col">
         <div className="mb-6">
           <CardDescription>
