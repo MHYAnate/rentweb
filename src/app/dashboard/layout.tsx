@@ -58,13 +58,13 @@
 //       name: 'Dashboard',
 //       href: '/dashboard',
 //       icon: BarChart3,
-//       roles: ['CLIENT', 'LANDLORD', 'AGENT', 'ADMIN']
+//       roles: ['CLIENT', 'LANDLORD', 'AGENT', 'ADMIN', 'SUPER_ADMIN']
 //     },
 //     {
 //       name: 'Properties',
 //       href: '/dashboard/properties',
 //       icon: Building,
-//       roles: ['LANDLORD', 'AGENT', 'ADMIN']
+//       roles: ['LANDLORD', 'AGENT', 'ADMIN', 'SUPER_ADMIN']
 //     },
 //     {
 //       name: 'My Properties',
@@ -88,13 +88,13 @@
 //       name: 'Complaints',
 //       href: '/dashboard/complaints',
 //       icon: MessageSquare,
-//       roles: ['CLIENT', 'LANDLORD', 'AGENT', 'ADMIN']
+//       roles: ['CLIENT', 'LANDLORD', 'AGENT', 'ADMIN', 'SUPER_ADMIN']
 //     },
 //     {
 //       name: 'Agents',
 //       href: '/dashboard/agents',
 //       icon: Users,
-//       roles: ['LANDLORD', 'ADMIN']
+//       roles: ['LANDLORD', 'ADMIN', 'SUPER_ADMIN']
 //     },
 //     {
 //       name: 'Verification',
@@ -106,13 +106,13 @@
 //       name: 'Analytics',
 //       href: '/dashboard/analytics',
 //       icon: BarChart3,
-//       roles: ['LANDLORD', 'AGENT', 'ADMIN']
+//       roles: ['LANDLORD', 'AGENT', 'ADMIN', 'SUPER_ADMIN']
 //     },
 //     {
 //       name: 'Reports',
 //       href: '/dashboard/reports',
 //       icon: FileText,
-//       roles: ['ADMIN']
+//       roles: ['ADMIN', 'SUPER_ADMIN']
 //     }
 //   ];
 
@@ -191,7 +191,7 @@
 //               </button>
 
 //               {/* Add Property Button */}
-//               {['LANDLORD', 'AGENT', 'ADMIN'].includes(user?.role) && (
+//               {['LANDLORD', 'AGENT', 'ADMIN', 'SUPER_ADMIN'].includes(user?.role) && (
 //                 <Link
 //                   href="/dashboard/properties/create"
 //                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
@@ -396,13 +396,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       name: 'Dashboard',
       href: '/dashboard',
       icon: BarChart3,
-      roles: ['CLIENT', 'LANDLORD', 'AGENT', 'ADMIN']
+      roles: ['CLIENT', 'LANDLORD', 'AGENT', 'ADMIN', 'SUPER_ADMIN']
     },
     {
       name: 'Properties',
       href: '/dashboard/propertiess',
       icon: Building,
-      roles: ['LANDLORD', 'AGENT', 'ADMIN']
+      roles: ['LANDLORD', 'AGENT', 'ADMIN', 'SUPER_ADMIN']
     },
     {
       name: 'My Properties',
@@ -426,13 +426,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       name: 'Complaints',
       href: '/dashboard/complaints',
       icon: MessageSquare,
-      roles: ['CLIENT', 'LANDLORD', 'AGENT', 'ADMIN']
+      roles: ['CLIENT', 'LANDLORD', 'AGENT', 'ADMIN', 'SUPER_ADMIN']
     },
     {
       name: 'Agents',
       href: '/dashboard/agents',
       icon: Users,
-      roles: ['LANDLORD', 'ADMIN']
+      roles: ['LANDLORD', 'ADMIN', 'SUPER_ADMIN']
     },
     {
       name: 'Verification',
@@ -444,13 +444,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       name: 'Analytics',
       href: '/dashboard/analytics',
       icon: BarChart3,
-      roles: ['LANDLORD', 'AGENT', 'ADMIN']
+      roles: ['LANDLORD', 'AGENT', 'ADMIN', 'SUPER_ADMIN']
     },
     {
       name: 'Reports',
       href: '/dashboard/reports',
       icon: FileText,
-      roles: ['ADMIN']
+      roles: ['ADMIN', 'SUPER_ADMIN']
     }
   ];
 
@@ -529,7 +529,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               </button>
 
               {/* Add Property Button */}
-              {['LANDLORD', 'AGENT', 'ADMIN'].includes(user?.role) && (
+              {['LANDLORD', 'AGENT', 'ADMIN', 'SUPER_ADMIN'].includes(user?.role) && (
                 <Link
                   href="/dashboard/properties/create"
                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
