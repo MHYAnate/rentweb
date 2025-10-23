@@ -42,7 +42,7 @@ export function PropertyTypeBarComponent() {
   }));
 
   return (
-    <Card className="p-3 w-full mx-auto">
+    <Card className="p-3 w-full mx-auto rounded-2xl border border-gray-100 shadow-md transition-all hover:shadow-xl hover:-translate-y-0.5">
       <h1 className="font-extrabold">Property Types</h1>
       <CardContent className="p-0 mt-2">
         <ChartContainer config={chartConfig} className="h-[250px] w-full">
