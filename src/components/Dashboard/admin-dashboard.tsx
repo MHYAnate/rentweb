@@ -209,7 +209,7 @@ const Dashboard: React.FC = () => {
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
 					<StatCard
 						title="Total Users"
-						value={userMetrics.totalUsers}
+						value={userMetrics.totalUsers-1}
 						icon={Users}
 						description={`${userMetrics.newLast30Days} new this month`}
 						trend="up"
@@ -247,7 +247,7 @@ const Dashboard: React.FC = () => {
 					<PieChartComponent
 						chartData={roleChartData}
 						title="Users by Role"
-						value={userMetrics.totalUsers}
+						value={userMetrics.totalUsers-1}
 					/>
 
 					{/* Verification Status Pie Chart */}

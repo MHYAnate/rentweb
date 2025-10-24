@@ -772,7 +772,9 @@ export function PieChartComponent({ chartData, title, value }: iProps) {
   // Top 4 values
   const topThreeData = [...chartData]
     .sort((a, b) => b.values - a.values)
-    .slice(0, 4);
+    .slice(0, 5)
+    .filter(item => item.title !== "Super_admin"); // Exclude Super_admin
+
 
   // Add gradient colors if not provided
   const gradients = [

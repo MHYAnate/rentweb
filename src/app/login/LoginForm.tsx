@@ -40,7 +40,7 @@ const LoginPage: React.FC = () => {2
     setIsLoading(true);
     try {
       await login(data.phone, data.password);
-      router.replace(from);
+      router.push("/dashboard");
     } catch (error) {
       // Error is handled by the auth context
     } finally {
