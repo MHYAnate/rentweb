@@ -17,13 +17,54 @@ const Header: React.FC = () => {
 		router.push("/");
 		setIsMobileMenuOpen(false);
 	};
+	// // name: 'Properties',
+	// // href: '/dashboard/admin-properties',
+	// // icon: Building,
+	// // roles: [ 'ADMIN', 'SUPER_ADMIN']
+
+	// const navItems = [
+	// 	{ label: "Properties", href: "/dashboard/propertiess", icon: Home },
+	// 	...(isAuthenticated
+	// 		? [
+	// 				{ label: "Favorites", href: "/dashboard/favorites", icon: Heart },
+	// 				{ label: "Dashboard", href: "/dashboard", icon: Plus },
+	// 				...(user?.role !== "CLIENT"
+	// 					? [
+	// 							{
+	// 								label: "Add Property",
+	// 								href: "/dashboard/propertiess/create",
+	// 								icon: PlusCircle,
+	// 							},
+	// 					  ]
+	// 					: []),
+	// 				{ label: "Profile", href: "/dashboard/profile", icon: User },
+	// 		  ]
+	// 		: []),
+	// ];
 
 	const navItems = [
-		{ label: "Properties", href: "/dashboard/propertiess", icon: Home },
+		// Show different "Properties" depending on role
+		...(user?.role === "ADMIN" || user?.role === "SUPER_ADMIN"
+			? [
+					{
+						label: "Properties",
+						href: "/dashboard/admin-properties",
+						icon: Home,
+					},
+				]
+			: [
+					{
+						label: "Properties",
+						href: "/dashboard/propertiess",
+						icon: Home,
+					},
+				]),
+	
 		...(isAuthenticated
 			? [
 					{ label: "Favorites", href: "/dashboard/favorites", icon: Heart },
 					{ label: "Dashboard", href: "/dashboard", icon: Plus },
+	
 					...(user?.role !== "CLIENT"
 						? [
 								{
@@ -31,13 +72,13 @@ const Header: React.FC = () => {
 									href: "/dashboard/propertiess/create",
 									icon: PlusCircle,
 								},
-						  ]
+							]
 						: []),
+	
 					{ label: "Profile", href: "/dashboard/profile", icon: User },
-			  ]
+				]
 			: []),
 	];
-
 	return (
 		<header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

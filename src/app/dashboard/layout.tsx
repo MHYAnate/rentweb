@@ -402,7 +402,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       name: 'Properties',
       href: '/dashboard/propertiess',
       icon: Building,
-      roles: ['LANDLORD', 'AGENT', 'ADMIN', 'SUPER_ADMIN']
+      roles: ['LANDLORD', 'AGENT']
+    },
+    {
+      name: 'Properties',
+      href: '/dashboard/admin-properties',
+      icon: Building,
+      roles: [ 'ADMIN', 'SUPER_ADMIN']
     },
     {
       name: 'My Properties',

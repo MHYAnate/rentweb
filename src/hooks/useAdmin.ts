@@ -153,3 +153,23 @@ export const useDeletePropertyAdmin = () => {
   });
 };
 
+export const useSetFeaturedProperty = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, isFeatured }: { id: string; isFeatured: boolean }) => 
+      adminAPI.updateProperty(id, { isFeatured }),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['allPropertiesAdmin'] });
+      toast.success(
+        variables.isFeatured 
+          ? 'Property set as featured' 
+          : 'Property removed from featured'
+      );
+    },
+    onError: (error: any) => {
+      toast.error(
+        error.response?.data?.message || 'Failed to update featured status'
+      );
+    },
+  });
+};
