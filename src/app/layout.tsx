@@ -2,12 +2,15 @@ import "./globals.css";
 
 import ClientLayout from './ClientLayout';
 import InstallPWAButton from "./pwaBtn";
+import { siteMetadata } from '@/config/metadata.config';
 
-export const metadata = {
-  title: 'Ppoint',
-  description: 'Pin Pointing perfect property',
-  manifest: "/manifest.webmanifest", // <-- This links your manifest
-};
+
+export const metadata = siteMetadata;
+// export const metadata = {
+//   title: 'Ppoint',
+//   description: 'Pin Pointing perfect property',
+//   manifest: "/manifest.webmanifest", // <-- This links your manifest
+// };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

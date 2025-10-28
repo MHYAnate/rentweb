@@ -1,0 +1,121 @@
+{
+  "name": "Properties point 1",
+  "short_name": "Ppoint1",
+  "start_url": "/",
+  "display": "standalone",
+  "description": "Premium Properties platform for Renters and Landlords.",
+  "lang": "en",
+  "dir": "auto",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "orientation": "any",
+  "display_override": "standalone",
+  "shortcuts": [
+    {
+      "name": "Register",
+      "url": "/register",
+      "description": "Join Ppoint1",
+      "icons": [
+        {
+          "src": "/image/2.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "About Us",
+      "url": "/aboutus",
+      "description": "about Ppoint1",
+      "icons": [
+        {
+          "src": "/image/2.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+imagespot",
+      "url": "/%s"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/image/2.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/image/2.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/image/2.png",
+      "sizes": "700x900",
+      "type": "image/png",
+      "description": "A screenshot of the home page"
+    },
+    {
+      "src": "/image/2.png",
+      "sizes": "700x900",
+      "type": "image/png",
+      "description": "A screenshot of the Search images"
+    },
+    {
+      "src": "/image/2.png",
+      "sizes": "700x900",
+      "type": "image/png",
+      "description": "A screenshot of the Category of image finder"
+    },
+    {
+      "src": "/image/2.png",
+      "sizes": "700x900",
+      "type": "image/png",
+      "description": "A screenshot of the vendors filter page"
+    },
+    {
+      "src": "/image/2.png",
+      "sizes": "700x900",
+      "type": "image/png",
+      "description": "A screenshot of the vendors card"
+    },
+    {
+      "src": "/image/2.png",
+      "sizes": "700x900",
+      "type": "image/png",
+      "description": "A screenshot of the vendor dash board"
+    },
+    {
+      "src": "/image/2.png",
+      "sizes": "700x900",
+      "type": "image/png",
+      "description": "A screenshot of the vendor dash board menu"
+    },
+    {
+      "src": "/image/2.png",
+      "sizes": "700x900",
+      "type": "image/png",
+      "description": "A screenshot of the vendor dashboard cards"
+    },
+    {
+      "src": "/image/2.png",
+      "sizes": "700x900",
+      "type": "image/png",
+      "description": "A screenshot of the customer feed back"
+    },
+    {
+      "src": "/image/2.png",
+      "sizes": "700x900",
+      "type": "image/png",
+      "description": "A screenshot of the vendor employment card"
+    }
+  ]
+}
