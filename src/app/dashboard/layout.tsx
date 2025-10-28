@@ -399,6 +399,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       roles: ['CLIENT', 'LANDLORD', 'AGENT', 'ADMIN', 'SUPER_ADMIN']
     },
     {
+      name: 'User',
+      href: '/dashboard/user-management',
+      icon: Users,
+      roles: ['ADMIN', 'SUPER_ADMIN']
+    },
+    {
       name: 'Properties',
       href: '/dashboard/propertiess',
       icon: Building,
@@ -430,21 +436,21 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     },
     {
       name: 'Complaints',
+      href: '/dashboard/complaints-management',
+      icon: MessageSquare,
+      roles: ['ADMIN', 'SUPER_ADMIN']
+    },
+    {
+      name: 'Complaints',
       href: '/dashboard/complaints',
       icon: MessageSquare,
-      roles: ['CLIENT', 'LANDLORD', 'AGENT', 'ADMIN', 'SUPER_ADMIN']
+      roles: ['CLIENT', 'LANDLORD', 'AGENT']
     },
     {
       name: 'Agents',
       href: '/dashboard/agents',
       icon: Users,
       roles: ['LANDLORD']
-    },
-    {
-      name: 'User',
-      href: '/dashboard/user-management',
-      icon: Users,
-      roles: ['ADMIN', 'SUPER_ADMIN']
     },
     {
       name: 'Verification',
@@ -673,7 +679,7 @@ const SidebarContent: React.FC<{
           Profile
         </Link>
         <Link
-          href="/dashboard/settings"
+          href="/dashboard/admin-settings"
           className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-colors"
         >
           <Settings className="flex-shrink-0 mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" />

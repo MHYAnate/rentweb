@@ -1022,7 +1022,8 @@ const UserManagement: React.FC<UserManagementProps> = ({ initialPage = 1 }) => {
                         <button
                           onClick={() => handleEditUser(user)}
                           className="p-2 text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition-colors"
-                          title="Edit user"
+                          disabled={user.role === "SUPER_ADMIN"}
+                          title={user.role === "SUPER_ADMIN" ? "Cannot Edit Super Admin" : "Edit user"}
                         >
                           <Edit2 className="h-4 w-4" />
                         </button>

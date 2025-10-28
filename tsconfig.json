@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["dom", "dom.iterable", "esnext", "WebWorker"],
+    "types": [
+      "node",
+      "@serwist/next/typings" // <-- ADD THIS for global types
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
