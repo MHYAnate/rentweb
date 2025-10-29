@@ -36,6 +36,7 @@
     "react-hook-form": "^7.63.0",
     "react-hot-toast": "^2.6.0",
     "recharts": "^3.3.0",
+    "web-push": "^3.6.7",
     "yup": "^1.7.1"
   },
   "devDependencies": {
@@ -45,6 +46,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-dropzone": "^4.2.2",
+    "@types/web-push": "^3.6.4",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
     "tailwindcss": "^4",
