@@ -31,7 +31,7 @@ self.addEventListener('push', function (event) {
     const data = event.data.json()
     const options = {
       body: data.body,
-      icon: data.icon || '/image/plogo.png',
+      icon: data.icon || '/favicon.ico',
       badge: '/image/favicon-16x16.png',
       vibrate: [100, 50, 100],
       data: {
