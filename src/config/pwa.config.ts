@@ -4,7 +4,7 @@ export const pwaConfig = {
   shortName: 'Ppoint1',
   description: "Premium Property Platform",
   backgroundColor: '#ffffff',
-  themeColor: '#000000',
+  themeColor: '#ffffff',
   display: 'standalone',
   scope: '/',
   startUrl: '/',
