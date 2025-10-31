@@ -8,8 +8,8 @@
 //         '/',
 //         '/offline',
 //         '/manifest.json',
-//         '/image/plogo.png',
-//         '/image/plogo.png',
+//         '/image/512x512.png',
+//         '/image/192x192.png',
 //       ]);
 //     })
 //   );
@@ -25,13 +25,14 @@
 //   );
 // });
 
+
 self.addEventListener('push', function (event) {
   if (event.data) {
     const data = event.data.json()
     const options = {
       body: data.body,
       icon: data.icon || '/image/plogo.png',
-      badge: '/favicon-16x16.png',
+      badge: '/image/favicon-16x16.png',
       vibrate: [100, 50, 100],
       data: {
         dateOfArrival: Date.now(),
