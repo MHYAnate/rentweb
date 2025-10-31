@@ -44,13 +44,13 @@
   ],
   "icons": [
     {
-      "src": "/image/2.png",
+      "src": "/image/512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/image/2.png",
+      "src": "/image/192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
@@ -70,13 +70,13 @@
       "description": "A screenshot of the Search images"
     },
     {
-      "src": "/image/2.png",
+      "src": "/image/plogo.png",
       "sizes": "700x900",
       "type": "image/png",
       "description": "A screenshot of the Category of image finder"
     },
     {
-      "src": "/image/2.png",
+      "src": "/image/1.png",
       "sizes": "700x900",
       "type": "image/png",
       "description": "A screenshot of the vendors filter page"
@@ -88,31 +88,31 @@
       "description": "A screenshot of the vendors card"
     },
     {
-      "src": "/image/2.png",
+      "src": "/image/3.png",
       "sizes": "700x900",
       "type": "image/png",
       "description": "A screenshot of the vendor dash board"
     },
     {
-      "src": "/image/2.png",
+      "src": "/image/4.png",
       "sizes": "700x900",
       "type": "image/png",
       "description": "A screenshot of the vendor dash board menu"
     },
     {
-      "src": "/image/2.png",
+      "src": "/image/p.png",
       "sizes": "700x900",
       "type": "image/png",
       "description": "A screenshot of the vendor dashboard cards"
     },
     {
-      "src": "/image/2.png",
+      "src": "/image/p1.png",
       "sizes": "700x900",
       "type": "image/png",
       "description": "A screenshot of the customer feed back"
     },
     {
-      "src": "/image/2.png",
+      "src": "/image/p2.png",
       "sizes": "700x900",
       "type": "image/png",
       "description": "A screenshot of the vendor employment card"
