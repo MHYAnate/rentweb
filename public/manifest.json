@@ -17,19 +17,19 @@
       "description": "Join Ppoint1",
       "icons": [
         {
-          "src": "/image/2.png",
+          "src": "/image/plogo.png",
           "sizes": "192x192",
           "type": "image/png"
         }
       ]
     },
     {
-      "name": "About Us",
-      "url": "/aboutus",
-      "description": "about Ppoint1",
+      "name": " Properties",
+      "url": "/properties",
+      "description": "Properties point",
       "icons": [
         {
-          "src": "/image/2.png",
+          "src": "/image/plogo.png",
           "sizes": "192x192",
           "type": "image/png"
         }
