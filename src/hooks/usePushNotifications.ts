@@ -249,7 +249,7 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array {
   return outputArray;
 }
 
-export const usePushNotifications = (): UsePushNotificationsReturn => {
+export const usePushNotifications = () => {
   const { user } = useAuth();
   const [isSupported, setIsSupported] = useState<boolean>(false);
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
@@ -373,9 +373,9 @@ const subscribeToPush = useCallback(async (): Promise<PushSubscriptionResult> =>
     const permissionResult = await Notification.requestPermission();
     setPermission(permissionResult);
 
-    if (permissionResult !== 'granted') {
-      throw new Error('Permission not granted for notifications');
-    }
+    // if (permissionResult !== 'granted') {
+    //   throw new Error('Permission not granted for notifications');
+    // }
 
     const registration = await navigator.serviceWorker.register('/sw.js');
     
