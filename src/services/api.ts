@@ -67,6 +67,13 @@ export const adminAPI = {
   deleteProperty: (id: any) => api.delete(`/admin/properties/${id}`),
 };
 
+export const pushAPI = {
+  subscribe: (data: any) => api.post('/push/subscribe', data),
+  unsubscribe: (data: any) => api.post('/push/unsubscribe', data),
+  broadcast: (data: any) => api.post('/push/broadcast', data),
+  sendToUser: (data: any) => api.post('/push/send-user', data),
+};
+
 // Landing API
 export const landingAPI = {
   getLandingData: (params?: any) => api.get('/landing', { params }),

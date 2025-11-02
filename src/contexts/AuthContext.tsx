@@ -55,21 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     initAuth();
   }, []);
 
-  // const login = async (email: string, password: string) => {
-  //   try {
-  //     const response = await authAPI.login({ email, password });
-  //     const { user: userData, token } = response.data.data;
-
-  //     localStorage.setItem('authToken', token);
-  //     localStorage.setItem('user', JSON.stringify(userData));
-  //     setUser(userData);
-  //     toast.success('Login successful!');
-  //   } catch (error: any) {
-  //     const message = error.response?.data?.message || 'Login failed';
-  //     toast.error(message);
-  //     throw error;
-  //   }
-  // };
+ 
   
   const login = async (phone: string, password: string) => {
     try {

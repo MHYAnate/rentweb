@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import Link from 'next/link';
 
 interface PlatformSettings {
   // General Settings
@@ -794,12 +795,13 @@ const AdminSettings: React.FC = () => {
                   </div>
 
                   <div className="flex items-center">
-                    <input
+                    {/* <input
                       type="checkbox"
                       checked={settings.pushNotifications}
                       onChange={(e) => handleSettingChange('pushNotifications', e.target.checked)}
                       className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                    />
+                    /> */}
+                    <Link href='/dashboard/settings/notifications' > got to push notifications settings </Link>
                     <label className="ml-2 block text-sm text-gray-900">
                       Push notifications
                     </label>
