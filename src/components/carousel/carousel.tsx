@@ -470,7 +470,7 @@ export function PremiumCarousel() {
 				width: "100%",
 				height: "clamp(500px, 90vh, 700px)",
 				overflow: "hidden",
-				backgroundColor: "#c28840", // Changed to white for better visibility of overflow
+				backgroundColor: "#ffffff", // Changed to white for better visibility of overflow
 			}}
 		>
 			<div

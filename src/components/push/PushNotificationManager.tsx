@@ -120,7 +120,7 @@ export default function PushNotificationManager() {
           </p>
           <button
             onClick={handleSubscribe}
-            disabled={isLoading }
+            disabled={isLoading || permission !== 'granted'}
             className="w-full bg-blue-500 text-white px-4 py-3 rounded-lg hover:bg-blue-600 disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
             type="button"
           >
