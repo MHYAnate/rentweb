@@ -164,7 +164,7 @@ const HomePage: React.FC = () => {
       )}
 
       {/* Platform Stats */}
-      <section className="py-16 bg-indigo-50">
+      {/* <section className="py-16 bg-indigo-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -225,7 +225,53 @@ const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+       <section className="py-16 bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-foreground mb-4">Why Choose Ppoint?</h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Join thousands of satisfied users who have found their perfect properties through our platform
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="text-center">
+            <div className="bg-blue-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Building className="w-8 h-8 text-blue-600" />
+            </div>
+            <h3 className="text-lg font-semibold text-foreground mb-2">Verified Properties</h3>
+            <p className="text-muted-foreground">
+              All properties are verified by our team for authenticity and quality
+            </p>
+          </div>
+
+          <div className="text-center">
+            <div className="bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Users className="w-8 h-8 text-emerald-600" />
+            </div>
+            <h3 className="text-lg font-semibold text-foreground mb-2">Trusted Agents</h3>
+            <p className="text-muted-foreground">Work with verified and experienced real estate professionals</p>
+          </div>
+
+          <div className="text-center">
+            <div className="bg-amber-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Star className="w-8 h-8 text-amber-600" />
+            </div>
+            <h3 className="text-lg font-semibold text-foreground mb-2">Quality Service</h3>
+            <p className="text-muted-foreground">Exceptional customer service and support throughout your journey</p>
+          </div>
+
+          <div className="text-center">
+            <div className="bg-rose-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <TrendingUp className="w-8 h-8 text-rose-600" />
+            </div>
+            <h3 className="text-lg font-semibold text-foreground mb-2">Market Insights</h3>
+            <p className="text-muted-foreground">Get access to real-time market data and property analytics</p>
+          </div>
+        </div>
+      </div>
+    </section>
     </div>
   );
 };
