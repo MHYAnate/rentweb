@@ -231,7 +231,7 @@ const HomePage: React.FC = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-foreground mb-4">Why Choose Ppoint?</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Join thousands of satisfied users who have found their perfect properties through our platform
+            Join our fast growing set of satisfied users who have found their perfect properties through our platform
           </p>
         </div>
 
@@ -242,7 +242,7 @@ const HomePage: React.FC = () => {
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">Verified Properties</h3>
             <p className="text-muted-foreground">
-              All properties are verified by our team for authenticity and quality
+              All properties that are lebeled verified by our team are authentic with quality
             </p>
           </div>
 
