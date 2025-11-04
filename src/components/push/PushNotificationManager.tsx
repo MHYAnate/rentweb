@@ -236,7 +236,8 @@ export default function PushNotificationManager() {
           Push Notifications Not Supported
         </h3>
         <p className="text-yellow-700 text-sm">
-          Your browser doesn't support push notifications. Please try using Chrome, Firefox, or Edge.
+         
+          {` Your browser doesn't support push notifications. Please try using Chrome, Firefox, or Edge.`}
         </p>
       </div>
     );
@@ -354,8 +355,8 @@ export default function PushNotificationManager() {
 
           {/* Help Text */}
           <div className="text-xs text-gray-500 space-y-1">
-            <p>• Push notifications work on Chrome, Firefox, Edge, and Safari (iOS 16.4+)</p>
-            <p>• On mobile, you may need to install the app to home screen</p>
+            <p>• Push notifications work on Chrome Firefox Edge and Safari (iOS 16.4+)</p>
+            <p>• On mobile you may need to install the app to home screen</p>
             <p>• Notifications are sent securely and can be disabled anytime</p>
           </div>
         </div>
