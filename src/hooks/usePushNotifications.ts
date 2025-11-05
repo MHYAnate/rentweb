@@ -567,6 +567,7 @@ interface UsePushNotificationsReturn {
   requestPermission: () => Promise<boolean>;
   checkSubscription: () => Promise<void>;
   checkPermission: () => void;
+  subscribeToPushWithEmail: () => Promise<PushSubscriptionResult>;
 }
 
 export const usePushNotifications = (): UsePushNotificationsReturn => {
@@ -751,6 +752,74 @@ export const usePushNotifications = (): UsePushNotificationsReturn => {
     }
   }, [subscription]);
 
+  const subscribeToPushWithEmail = useCallback(async (userEmail = null): Promise<PushSubscriptionResult> => {
+    if (!isSupported) {
+      return {
+        success: false,
+        error: 'Push notifications are not supported in this browser'
+      };
+    }
+  
+    setIsLoading(true);
+    try {
+      const permissionResult = await Notification.requestPermission();
+      setPermission(permissionResult);
+  
+      if (permissionResult !== 'granted') {
+        throw new Error('Permission not granted for notifications');
+      }
+  
+      const registration = await navigator.serviceWorker.register('/sw.js');
+      
+      const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+      if (!vapidPublicKey) {
+        throw new Error('VAPID public key is not configured');
+      }
+  
+      const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
+      
+      const sub = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: applicationServerKey
+      });
+  
+      setSubscription(sub);
+      setIsSubscribed(true);
+  
+      const serializedSub = {
+        endpoint: sub.endpoint,
+        keys: {
+          auth: arrayBufferToBase64(sub.getKey('auth') as any),
+          p256dh: arrayBufferToBase64(sub.getKey('p256dh') as any)
+        }
+      };
+  
+      // Send subscription with user email if available
+      await api.post('/push/subscribe', {
+        subscription: serializedSub,
+        userId: user?.id,
+        userEmail: userEmail || user?.email
+      });
+  
+      console.log('Push subscription successful for:', userEmail || user?.email);
+  
+      return { success: true };
+  
+    } catch (error) {
+      console.error('Error subscribing to push:', error);
+      let message = 'Failed to subscribe to push notifications';
+      if (error instanceof Error) {
+        if (error.message.includes('Permission not granted')) {
+          message = 'Please allow notifications in your browser settings';
+        }
+      }
+      return { success: false, error: message };
+    } finally {
+      setIsLoading(false);
+    }
+  }, [isSupported, user]);
+  
+
   return {
     isSupported,
     isSubscribed,
@@ -761,6 +830,7 @@ export const usePushNotifications = (): UsePushNotificationsReturn => {
     unsubscribeFromPush,
     requestPermission,
     checkSubscription,
-    checkPermission
+    checkPermission,
+    subscribeToPushWithEmail
   };
 };
