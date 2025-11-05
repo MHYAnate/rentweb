@@ -1,18 +1,291 @@
 
+// // // import { useState, useEffect, useCallback } from 'react';
+// // // import { useAuth } from '../contexts/AuthContext';
+// // // import api from '../services/api';
+
+// // // // Type definitions
+// // // interface PushSubscriptionKeys {
+// // //   auth: string;
+// // //   p256dh: string;
+// // // }
+
+// // // interface PushSubscriptionData {
+// // //   endpoint: string;
+// // //   keys: PushSubscriptionKeys;
+// // // }
+
+// // // interface PushSubscriptionResult {
+// // //   success: boolean;
+// // //   error?: string;
+// // // }
+
+// // // interface UsePushNotificationsReturn {
+// // //   isSupported: boolean;
+// // //   isSubscribed: boolean;
+// // //   isLoading: boolean;
+// // //   permission: NotificationPermission;
+// // //   subscription: PushSubscription | null;
+// // //   subscribeToPush: () => Promise<PushSubscriptionResult>;
+// // //   unsubscribeFromPush: () => Promise<PushSubscriptionResult>;
+// // //   checkSubscription: () => Promise<void>;
+// // //   checkPermission: () => void;
+// // // }
+
+// // // // Fixed version: Properly typed Uint8Array creation
+// // // function urlBase64ToUint8Array(base64String: string): Uint8Array {
+// // //   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+// // //   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+// // //   const rawData = window.atob(base64);
+// // //   const buffer = new ArrayBuffer(rawData.length);
+// // //   const outputArray = new Uint8Array(buffer);
+  
+// // //   for (let i = 0; i < rawData.length; ++i) {
+// // //     outputArray[i] = rawData.charCodeAt(i);
+// // //   }
+// // //   return outputArray;
+// // // }
+
+// // // export const usePushNotifications = () => {
+// // //   const { user } = useAuth();
+// // //   const [isSupported, setIsSupported] = useState<boolean>(false);
+// // //   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
+// // //   const [subscription, setSubscription] = useState<PushSubscription | null>(null);
+// // //   const [isLoading, setIsLoading] = useState<boolean>(false);
+// // //   const [permission, setPermission] = useState<NotificationPermission>('default');
+
+// // //   useEffect(() => {
+// // //     if ('serviceWorker' in navigator && 'PushManager' in window) {
+// // //       setIsSupported(true);
+// // //       checkPermission();
+// // //       checkSubscription();
+// // //     }
+// // //   }, []);
+
+// // //   const checkPermission = useCallback(() => {
+// // //     if (!('Notification' in window)) return;
+// // //     setPermission(Notification.permission);
+// // //   }, []);
+
+// // //   const checkSubscription = useCallback(async (): Promise<void> => {
+// // //     if (!isSupported) return;
+
+// // //     try {
+// // //       const registration = await navigator.serviceWorker.ready;
+// // //       const sub = await registration.pushManager.getSubscription();
+// // //       setSubscription(sub);
+// // //       setIsSubscribed(!!sub);
+// // //     } catch (error) {
+// // //       console.error('Error checking subscription:', error);
+// // //     }
+// // //   }, [isSupported]);
+
+// // //   // const subscribeToPush = useCallback(async (): Promise<PushSubscriptionResult> => {
+// // //   //   if (!isSupported) {
+// // //   //     return {
+// // //   //       success: false,
+// // //   //       error: 'Push notifications are not supported in this browser'
+// // //   //     };
+// // //   //   }
+
+// // //   //   setIsLoading(true);
+// // //   //   try {
+// // //   //     // Request notification permission
+// // //   //     const permissionResult = await Notification.requestPermission();
+// // //   //     setPermission(permissionResult);
+
+// // //   //     if (permissionResult !== 'granted') {
+// // //   //       throw new Error('Permission not granted for notifications');
+// // //   //     }
+
+// // //   //     // Register service worker
+// // //   //     const registration = await navigator.serviceWorker.register('/sw.js');
+      
+// // //   //     // Get the VAPID public key from environment
+// // //   //     const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+// // //   //     if (!vapidPublicKey) {
+// // //   //       throw new Error('VAPID public key is not configured');
+// // //   //     }
+
+// // //   //     // Convert VAPID key to Uint8Array
+// // //   //     const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
+      
+// // //   //     // Subscribe to push with proper typing
+// // //   //     const sub = await registration.pushManager.subscribe({
+// // //   //       userVisibleOnly: true,
+// // //   //       applicationServerKey: applicationServerKey
+// // //   //     });
+
+// // //   //     setSubscription(sub);
+// // //   //     setIsSubscribed(true);
+
+// // //   //     // Send subscription to backend
+// // //   //     const serializedSub: PushSubscriptionData = {
+// // //   //       endpoint: sub.endpoint,
+// // //   //       keys: {
+// // //   //         auth: arrayBufferToBase64(sub.getKey('auth') as ArrayBuffer),
+// // //   //         p256dh: arrayBufferToBase64(sub.getKey('p256dh') as ArrayBuffer)
+// // //   //       }
+// // //   //     };
+
+// // //   //     await api.post('/push/subscribe', {
+// // //   //       subscription: serializedSub,
+// // //   //       userId: user?.id
+// // //   //     });
+
+// // //   //     return { success: true };
+
+// // //   //   } catch (error) {
+// // //   //     console.error('Error subscribing to push:', error);
+      
+// // //   //     let message = 'Failed to subscribe to push notifications';
+// // //   //     if (error instanceof Error) {
+// // //   //       if (error.message.includes('Permission not granted')) {
+// // //   //         message = 'Please allow notifications in your browser settings';
+// // //   //       } else if (error.message.includes('not supported')) {
+// // //   //         message = 'Push notifications are not supported in this browser';
+// // //   //       } else if (error.message.includes('VAPID public key')) {
+// // //   //         message = 'Push notifications are not properly configured';
+// // //   //       }
+// // //   //     }
+      
+// // //   //     return { success: false, error: message };
+// // //   //   } finally {
+// // //   //     setIsLoading(false);
+// // //   //   }
+// // //   // }, [isSupported, user]);
+
+
+// // //   // Alternative version with type assertion
+// // // const subscribeToPush = useCallback(async (): Promise<PushSubscriptionResult> => {
+// // //   if (!isSupported) {
+// // //     return {
+// // //       success: false,
+// // //       error: 'Push notifications are not supported in this browser'
+// // //     };
+// // //   }
+
+// // //   setIsLoading(true);
+// // //   try {
+// // //     const permissionResult = await Notification.requestPermission();
+// // //     setPermission(permissionResult);
+
+// // //     // if (permissionResult !== 'granted') {
+// // //     //   throw new Error('Permission not granted for notifications');
+// // //     // }
+
+// // //     const registration = await navigator.serviceWorker.register('/sw.js');
+    
+// // //     const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+// // //     if (!vapidPublicKey) {
+// // //       throw new Error('VAPID public key is not configured');
+// // //     }
+
+// // //     const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
+    
+// // //     // Use type assertion to fix the TypeScript error
+// // //     const sub = await registration.pushManager.subscribe({
+// // //       userVisibleOnly: true,
+// // //       applicationServerKey: applicationServerKey as any // Type assertion
+// // //     });
+
+// // //     setSubscription(sub);
+// // //     setIsSubscribed(true);
+
+// // //     const serializedSub: PushSubscriptionData = {
+// // //       endpoint: sub.endpoint,
+// // //       keys: {
+// // //         auth: arrayBufferToBase64(sub.getKey('auth') as ArrayBuffer),
+// // //         p256dh: arrayBufferToBase64(sub.getKey('p256dh') as ArrayBuffer)
+// // //       }
+// // //     };
+
+// // //     await api.post('/push/subscribe', {
+// // //       subscription: serializedSub,
+// // //       userId: user?.id
+// // //     });
+
+// // //     return { success: true };
+
+// // //   } catch (error) {
+// // //     console.error('Error subscribing to push:', error);
+// // //     let message = 'Failed to subscribe to push notifications';
+// // //     if (error instanceof Error) {
+// // //       if (error.message.includes('Permission not granted')) {
+// // //         message = 'Please allow notifications in your browser settings';
+// // //       } else if (error.message.includes('not supported')) {
+// // //         message = 'Push notifications are not supported in this browser';
+// // //       } else if (error.message.includes('VAPID public key')) {
+// // //         message = 'Push notifications are not properly configured';
+// // //       }
+// // //     }
+// // //     return { success: false, error: message };
+// // //   } finally {
+// // //     setIsLoading(false);
+// // //   }
+// // // }, [isSupported, user]);
+// // //   const unsubscribeFromPush = useCallback(async (): Promise<PushSubscriptionResult> => {
+// // //     if (!subscription) {
+// // //       return {
+// // //         success: false,
+// // //         error: 'No active subscription found'
+// // //       };
+// // //     }
+
+// // //     setIsLoading(true);
+// // //     try {
+// // //       await subscription.unsubscribe();
+// // //       setSubscription(null);
+// // //       setIsSubscribed(false);
+
+// // //       // Remove subscription from backend
+// // //       await api.post('/push/unsubscribe', {
+// // //         endpoint: subscription.endpoint
+// // //       });
+
+// // //       return { success: true };
+
+// // //     } catch (error) {
+// // //       console.error('Error unsubscribing from push:', error);
+// // //       return { 
+// // //         success: false, 
+// // //         error: 'Failed to unsubscribe from push notifications' 
+// // //       };
+// // //     } finally {
+// // //       setIsLoading(false);
+// // //     }
+// // //   }, [subscription]);
+
+// // //   const requestPermissionAndSubscribe = useCallback(async (): Promise<PushSubscriptionResult> => {
+// // //     return await subscribeToPush();
+// // //   }, [subscribeToPush]);
+
+// // //   return {
+// // //     isSupported,
+// // //     isSubscribed,
+// // //     isLoading,
+// // //     permission,
+// // //     subscription,
+// // //     subscribeToPush: requestPermissionAndSubscribe,
+// // //     unsubscribeFromPush,
+// // //     checkSubscription,
+// // //     checkPermission
+// // //   };
+// // // };
+
+// // // // Helper function to convert ArrayBuffer to base64
+// // // function arrayBufferToBase64(buffer: ArrayBuffer): string {
+// // //   const bytes = new Uint8Array(buffer);
+// // //   let binary = '';
+// // //   for (let i = 0; i < bytes.byteLength; i++) {
+// // //     binary += String.fromCharCode(bytes[i]);
+// // //   }
+// // //   return window.btoa(binary);
+// // // }
+
+// // // hooks/usePushNotifications.ts
 // // import { useState, useEffect, useCallback } from 'react';
 // // import { useAuth } from '../contexts/AuthContext';
 // // import api from '../services/api';
-
-// // // Type definitions
-// // interface PushSubscriptionKeys {
-// //   auth: string;
-// //   p256dh: string;
-// // }
-
-// // interface PushSubscriptionData {
-// //   endpoint: string;
-// //   keys: PushSubscriptionKeys;
-// // }
 
 // // interface PushSubscriptionResult {
 // //   success: boolean;
@@ -27,25 +300,12 @@
 // //   subscription: PushSubscription | null;
 // //   subscribeToPush: () => Promise<PushSubscriptionResult>;
 // //   unsubscribeFromPush: () => Promise<PushSubscriptionResult>;
+// //   requestPermission: () => Promise<boolean>;
 // //   checkSubscription: () => Promise<void>;
 // //   checkPermission: () => void;
 // // }
 
-// // // Fixed version: Properly typed Uint8Array creation
-// // function urlBase64ToUint8Array(base64String: string): Uint8Array {
-// //   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-// //   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-// //   const rawData = window.atob(base64);
-// //   const buffer = new ArrayBuffer(rawData.length);
-// //   const outputArray = new Uint8Array(buffer);
-  
-// //   for (let i = 0; i < rawData.length; ++i) {
-// //     outputArray[i] = rawData.charCodeAt(i);
-// //   }
-// //   return outputArray;
-// // }
-
-// // export const usePushNotifications = () => {
+// // export const usePushNotifications = (): UsePushNotificationsReturn => {
 // //   const { user } = useAuth();
 // //   const [isSupported, setIsSupported] = useState<boolean>(false);
 // //   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
@@ -53,16 +313,26 @@
 // //   const [isLoading, setIsLoading] = useState<boolean>(false);
 // //   const [permission, setPermission] = useState<NotificationPermission>('default');
 
+// //   // Check browser support
 // //   useEffect(() => {
-// //     if ('serviceWorker' in navigator && 'PushManager' in window) {
-// //       setIsSupported(true);
-// //       checkPermission();
-// //       checkSubscription();
-// //     }
+// //     const checkSupport = () => {
+// //       const supported = 
+// //         'serviceWorker' in navigator && 
+// //         'PushManager' in window && 
+// //         'Notification' in window;
+      
+// //       setIsSupported(supported);
+      
+// //       if (supported) {
+// //         checkPermission();
+// //         checkSubscription();
+// //       }
+// //     };
+
+// //     checkSupport();
 // //   }, []);
 
 // //   const checkPermission = useCallback(() => {
-// //     if (!('Notification' in window)) return;
 // //     setPermission(Notification.permission);
 // //   }, []);
 
@@ -79,150 +349,109 @@
 // //     }
 // //   }, [isSupported]);
 
-// //   // const subscribeToPush = useCallback(async (): Promise<PushSubscriptionResult> => {
-// //   //   if (!isSupported) {
-// //   //     return {
-// //   //       success: false,
-// //   //       error: 'Push notifications are not supported in this browser'
-// //   //     };
-// //   //   }
+// //   const requestPermission = useCallback(async (): Promise<boolean> => {
+// //     if (!isSupported) return false;
 
-// //   //   setIsLoading(true);
-// //   //   try {
-// //   //     // Request notification permission
-// //   //     const permissionResult = await Notification.requestPermission();
-// //   //     setPermission(permissionResult);
+// //     try {
+// //       const result = await Notification.requestPermission();
+// //       setPermission(result);
+// //       return result === 'granted';
+// //     } catch (error) {
+// //       console.error('Error requesting permission:', error);
+// //       return false;
+// //     }
+// //   }, [isSupported]);
 
-// //   //     if (permissionResult !== 'granted') {
-// //   //       throw new Error('Permission not granted for notifications');
-// //   //     }
-
-// //   //     // Register service worker
-// //   //     const registration = await navigator.serviceWorker.register('/sw.js');
-      
-// //   //     // Get the VAPID public key from environment
-// //   //     const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-// //   //     if (!vapidPublicKey) {
-// //   //       throw new Error('VAPID public key is not configured');
-// //   //     }
-
-// //   //     // Convert VAPID key to Uint8Array
-// //   //     const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
-      
-// //   //     // Subscribe to push with proper typing
-// //   //     const sub = await registration.pushManager.subscribe({
-// //   //       userVisibleOnly: true,
-// //   //       applicationServerKey: applicationServerKey
-// //   //     });
-
-// //   //     setSubscription(sub);
-// //   //     setIsSubscribed(true);
-
-// //   //     // Send subscription to backend
-// //   //     const serializedSub: PushSubscriptionData = {
-// //   //       endpoint: sub.endpoint,
-// //   //       keys: {
-// //   //         auth: arrayBufferToBase64(sub.getKey('auth') as ArrayBuffer),
-// //   //         p256dh: arrayBufferToBase64(sub.getKey('p256dh') as ArrayBuffer)
-// //   //       }
-// //   //     };
-
-// //   //     await api.post('/push/subscribe', {
-// //   //       subscription: serializedSub,
-// //   //       userId: user?.id
-// //   //     });
-
-// //   //     return { success: true };
-
-// //   //   } catch (error) {
-// //   //     console.error('Error subscribing to push:', error);
-      
-// //   //     let message = 'Failed to subscribe to push notifications';
-// //   //     if (error instanceof Error) {
-// //   //       if (error.message.includes('Permission not granted')) {
-// //   //         message = 'Please allow notifications in your browser settings';
-// //   //       } else if (error.message.includes('not supported')) {
-// //   //         message = 'Push notifications are not supported in this browser';
-// //   //       } else if (error.message.includes('VAPID public key')) {
-// //   //         message = 'Push notifications are not properly configured';
-// //   //       }
-// //   //     }
-      
-// //   //     return { success: false, error: message };
-// //   //   } finally {
-// //   //     setIsLoading(false);
-// //   //   }
-// //   // }, [isSupported, user]);
-
-
-// //   // Alternative version with type assertion
-// // const subscribeToPush = useCallback(async (): Promise<PushSubscriptionResult> => {
-// //   if (!isSupported) {
-// //     return {
-// //       success: false,
-// //       error: 'Push notifications are not supported in this browser'
-// //     };
-// //   }
-
-// //   setIsLoading(true);
-// //   try {
-// //     const permissionResult = await Notification.requestPermission();
-// //     setPermission(permissionResult);
-
-// //     // if (permissionResult !== 'granted') {
-// //     //   throw new Error('Permission not granted for notifications');
-// //     // }
-
-// //     const registration = await navigator.serviceWorker.register('/sw.js');
-    
-// //     const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-// //     if (!vapidPublicKey) {
-// //       throw new Error('VAPID public key is not configured');
+// //   const subscribeToPush = useCallback(async (): Promise<PushSubscriptionResult> => {
+// //     if (!isSupported) {
+// //       return {
+// //         success: false,
+// //         error: 'Push notifications are not supported in this browser'
+// //       };
 // //     }
 
-// //     const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
-    
-// //     // Use type assertion to fix the TypeScript error
-// //     const sub = await registration.pushManager.subscribe({
-// //       userVisibleOnly: true,
-// //       applicationServerKey: applicationServerKey as any // Type assertion
-// //     });
-
-// //     setSubscription(sub);
-// //     setIsSubscribed(true);
-
-// //     const serializedSub: PushSubscriptionData = {
-// //       endpoint: sub.endpoint,
-// //       keys: {
-// //         auth: arrayBufferToBase64(sub.getKey('auth') as ArrayBuffer),
-// //         p256dh: arrayBufferToBase64(sub.getKey('p256dh') as ArrayBuffer)
+// //     setIsLoading(true);
+// //     try {
+// //       // Ensure we have permission first
+// //       if (permission !== 'granted') {
+// //         const granted = await requestPermission();
+// //         if (!granted) {
+// //           throw new Error('Permission not granted for notifications');
+// //         }
 // //       }
-// //     };
 
-// //     await api.post('/push/subscribe', {
-// //       subscription: serializedSub,
-// //       userId: user?.id
-// //     });
-
-// //     return { success: true };
-
-// //   } catch (error) {
-// //     console.error('Error subscribing to push:', error);
-// //     let message = 'Failed to subscribe to push notifications';
-// //     if (error instanceof Error) {
-// //       if (error.message.includes('Permission not granted')) {
-// //         message = 'Please allow notifications in your browser settings';
-// //       } else if (error.message.includes('not supported')) {
-// //         message = 'Push notifications are not supported in this browser';
-// //       } else if (error.message.includes('VAPID public key')) {
-// //         message = 'Push notifications are not properly configured';
+// //       // Register service worker if not already registered
+// //       let registration;
+// //       try {
+// //         registration = await navigator.serviceWorker.getRegistration();
+// //         if (!registration) {
+// //           registration = await navigator.serviceWorker.register('/sw.js', {
+// //             scope: '/'
+// //           });
+// //           console.log('Service Worker registered:', registration);
+// //         }
+// //       } catch (swError) {
+// //         console.error('Service Worker registration failed:', swError);
+// //         throw new Error('Service Worker registration failed');
 // //       }
+
+// //       // Ensure service worker registration is valid
+
+// //       const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+// //       if (!vapidPublicKey) {
+// //         throw new Error('VAPID public key is not configured');
+// //       }
+
+// //       const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
+      
+// //       // Subscribe to push
+// //       const sub = await registration.pushManager.subscribe({
+// //         userVisibleOnly: true,
+// //         applicationServerKey: applicationServerKey as any
+// //       });
+
+// //       setSubscription(sub);
+// //       setIsSubscribed(true);
+
+// //       // Send subscription to backend
+// //       const serializedSub = {
+// //         endpoint: sub.endpoint,
+// //         keys: {
+// //           auth: arrayBufferToBase64(sub.getKey('auth') as ArrayBuffer),
+// //           p256dh: arrayBufferToBase64(sub.getKey('p256dh') as ArrayBuffer)
+// //         }
+// //       };
+
+// //       await api.post('/push/subscribe', {
+// //         subscription: serializedSub,
+// //         userId: user?.id
+// //       });
+
+// //       console.log('Push subscription successful');
+// //       return { success: true };
+
+// //     } catch (error) {
+// //       console.error('Error subscribing to push:', error);
+      
+// //       let message = 'Failed to subscribe to push notifications';
+// //       if (error instanceof Error) {
+// //         if (error.message.includes('Permission not granted')) {
+// //           message = 'Please allow notifications in your browser settings';
+// //         } else if (error.message.includes('not supported')) {
+// //           message = 'Push notifications are not supported in this browser';
+// //         } else if (error.message.includes('VAPID public key')) {
+// //           message = 'Push notifications are not properly configured';
+// //         } else if (error.message.includes('Service Worker')) {
+// //           message = 'Service Worker registration failed. Please try again.';
+// //         }
+// //       }
+      
+// //       return { success: false, error: message };
+// //     } finally {
+// //       setIsLoading(false);
 // //     }
-// //     return { success: false, error: message };
-// //   } finally {
-// //     setIsLoading(false);
-// //   }
-// // }, [isSupported, user]);
+// //   }, [isSupported, permission, requestPermission, user]);
+
 // //   const unsubscribeFromPush = useCallback(async (): Promise<PushSubscriptionResult> => {
 // //     if (!subscription) {
 // //       return {
@@ -234,13 +463,14 @@
 // //     setIsLoading(true);
 // //     try {
 // //       await subscription.unsubscribe();
-// //       setSubscription(null);
-// //       setIsSubscribed(false);
-
-// //       // Remove subscription from backend
+      
+// //       // Remove from backend
 // //       await api.post('/push/unsubscribe', {
 // //         endpoint: subscription.endpoint
 // //       });
+
+// //       setSubscription(null);
+// //       setIsSubscribed(false);
 
 // //       return { success: true };
 
@@ -255,24 +485,31 @@
 // //     }
 // //   }, [subscription]);
 
-// //   const requestPermissionAndSubscribe = useCallback(async (): Promise<PushSubscriptionResult> => {
-// //     return await subscribeToPush();
-// //   }, [subscribeToPush]);
-
 // //   return {
 // //     isSupported,
 // //     isSubscribed,
 // //     isLoading,
 // //     permission,
 // //     subscription,
-// //     subscribeToPush: requestPermissionAndSubscribe,
+// //     subscribeToPush,
 // //     unsubscribeFromPush,
+// //     requestPermission,
 // //     checkSubscription,
 // //     checkPermission
 // //   };
-// // };
+// // function urlBase64ToUint8Array(base64String: string): Uint8Array {
+// //   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+// //   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+// //   const rawData = window.atob(base64);
+// //   const outputArray = new Uint8Array(rawData.length);
 
-// // // Helper function to convert ArrayBuffer to base64
+// //   for (let i = 0; i < rawData.length; ++i) {
+// //     outputArray[i] = rawData.charCodeAt(i);
+// //   }
+// //   return outputArray;
+// // }
+
+
 // // function arrayBufferToBase64(buffer: ArrayBuffer): string {
 // //   const bytes = new Uint8Array(buffer);
 // //   let binary = '';
@@ -281,16 +518,56 @@
 // //   }
 // //   return window.btoa(binary);
 // // }
+// // // Removed duplicate implementation of urlBase64ToUint8Array
+// // }
 
 // // hooks/usePushNotifications.ts
 // import { useState, useEffect, useCallback } from 'react';
 // import { useAuth } from '../contexts/AuthContext';
 // import api from '../services/api';
+// // import {  arrayBufferToBase64 } from '@/app/utils/push-utils';
 
-// interface PushSubscriptionResult {
+
+// function urlBase64ToUint8Array(base64String: string): Uint8Array {
+//   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+//   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+//   const rawData = window.atob(base64);
+//   const outputArray = new Uint8Array(rawData.length);
+  
+//   for (let i = 0; i < rawData.length; ++i) {
+//     outputArray[i] = rawData.charCodeAt(i);
+//   }
+//   return outputArray;
+// }
+
+// // types/push-notifications.ts
+// export interface PushSubscriptionKeys {
+//   auth: string;
+//   p256dh: string;
+// }
+
+// export interface PushSubscriptionData {
+//   endpoint: string;
+//   keys: PushSubscriptionKeys;
+// }
+
+// export interface PushSubscriptionResult {
 //   success: boolean;
 //   error?: string;
 // }
+
+// // export interface UsePushNotificationsReturn {
+// //   isSupported: boolean;
+// //   isSubscribed: boolean;
+// //   isLoading: boolean;
+// //   permission: NotificationPermission;
+// //   subscription: PushSubscription | null;
+// //   subscribeToPush: () => Promise<PushSubscriptionResult>;
+// //   unsubscribeFromPush: () => Promise<PushSubscriptionResult>;
+// //   requestPermission: () => Promise<boolean>;
+// //   checkSubscription: () => Promise<void>;
+// //   checkPermission: () => void;
+// // }
 
 // interface UsePushNotificationsReturn {
 //   isSupported: boolean;
@@ -303,6 +580,7 @@
 //   requestPermission: () => Promise<boolean>;
 //   checkSubscription: () => Promise<void>;
 //   checkPermission: () => void;
+//   subscribeToPushWithEmail: () => Promise<PushSubscriptionResult>;
 // }
 
 // export const usePushNotifications = (): UsePushNotificationsReturn => {
@@ -332,7 +610,240 @@
 //     checkSupport();
 //   }, []);
 
+//   // const checkPermission = useCallback(() => {
+//   //   setPermission(Notification.permission);
+//   // }, []);
+
+//   // const checkSubscription = useCallback(async (): Promise<void> => {
+//   //   if (!isSupported) return;
+
+//   //   try {
+//   //     const registration = await navigator.serviceWorker.ready;
+//   //     const sub = await registration.pushManager.getSubscription();
+//   //     setSubscription(sub);
+//   //     setIsSubscribed(!!sub);
+//   //   } catch (error) {
+//   //     console.error('Error checking subscription:', error);
+//   //   }
+//   // }, [isSupported]);
+
+//   const requestPermission = useCallback(async (): Promise<boolean> => {
+//     if (!isSupported) return false;
+
+//     try {
+//       const result = await Notification.requestPermission();
+//       setPermission(result);
+//       return result === 'granted';
+//     } catch (error) {
+//       console.error('Error requesting permission:', error);
+//       return false;
+//     }
+//   }, [isSupported]);
+
+//   // const subscribeToPush = useCallback(async (): Promise<PushSubscriptionResult> => {
+//   //   if (!isSupported) {
+//   //     return {
+//   //       success: false,
+//   //       error: 'Push notifications are not supported in this browser'
+//   //     };
+//   //   }
+
+//   //   setIsLoading(true);
+//   //   try {
+//   //     // Ensure we have permission first
+//   //     if (permission !== 'granted') {
+//   //       const granted = await requestPermission();
+//   //       if (!granted) {
+//   //         throw new Error('Permission not granted for notifications');
+//   //       }
+//   //     }
+
+//   //     // Register service worker if not already registered
+//   //     let registration;
+//   //     try {
+//   //       registration = await navigator.serviceWorker.getRegistration();
+//   //       if (!registration) {
+//   //         registration = await navigator.serviceWorker.register('/sw.js', {
+//   //           scope: '/'
+//   //         });
+//   //         console.log('Service Worker registered:', registration);
+//   //       }
+//   //     } catch (swError) {
+//   //       console.error('Service Worker registration failed:', swError);
+//   //       throw new Error('Service Worker registration failed');
+//   //     }
+
+//   //     // Wait for service worker to be ready
+//   //     // await registration.ready;
+//   //     registration = await navigator.serviceWorker.ready;
+
+//   //     const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+//   //     if (!vapidPublicKey) {
+//   //       throw new Error('VAPID public key is not configured');
+//   //     }
+
+//   //     const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
+      
+//   //     // Subscribe to push
+//   //     const sub = await registration.pushManager.subscribe({
+//   //       userVisibleOnly: true,
+//   //       applicationServerKey: applicationServerKey as any
+//   //     });
+
+//   //     setSubscription(sub);
+//   //     setIsSubscribed(true);
+
+//   //     // Send subscription to backend
+//   //     const serializedSub = {
+//   //       endpoint: sub.endpoint,
+//   //       keys: {
+//   //         auth: arrayBufferToBase64(sub.getKey('auth') as ArrayBuffer),
+//   //         p256dh: arrayBufferToBase64(sub.getKey('p256dh') as ArrayBuffer)
+//   //       }
+//   //     };
+
+//   //     await api.post('/push/subscribe', {
+//   //       subscription: serializedSub,
+//   //       userId: user?.id
+//   //     });
+
+//   //     console.log('Push subscription successful');
+//   //     return { success: true };
+
+//   //   } catch (error) {
+//   //     console.error('Error subscribing to push:', error);
+      
+//   //     let message = 'Failed to subscribe to push notifications';
+//   //     if (error instanceof Error) {
+//   //       if (error.message.includes('Permission not granted')) {
+//   //         message = 'Please allow notifications in your browser settings';
+//   //       } else if (error.message.includes('not supported')) {
+//   //         message = 'Push notifications are not supported in this browser';
+//   //       } else if (error.message.includes('VAPID public key')) {
+//   //         message = 'Push notifications are not properly configured';
+//   //       } else if (error.message.includes('Service Worker')) {
+//   //         message = 'Service Worker registration failed. Please try again.';
+//   //       }
+//   //     }
+      
+//   //     return { success: false, error: message };
+//   //   } finally {
+//   //     setIsLoading(false);
+//   //   }
+//   // }, [isSupported, permission, requestPermission, user]);
+
+//   // const unsubscribeFromPush = useCallback(async (): Promise<PushSubscriptionResult> => {
+//   //   if (!subscription) {
+//   //     return {
+//   //       success: false,
+//   //       error: 'No active subscription found'
+//   //     };
+//   //   }
+
+//   //   setIsLoading(true);
+//   //   try {
+//   //     await subscription.unsubscribe();
+      
+//   //     // Remove from backend
+//   //     await api.post('/api/push/unsubscribe', {
+//   //       endpoint: subscription.endpoint
+//   //     });
+
+//   //     setSubscription(null);
+//   //     setIsSubscribed(false);
+
+//   //     return { success: true };
+
+//   //   } catch (error) {
+//   //     console.error('Error unsubscribing from push:', error);
+//   //     return { 
+//   //       success: false, 
+//   //       error: 'Failed to unsubscribe from push notifications' 
+//   //     };
+//   //   } finally {
+//   //     setIsLoading(false);
+//   //   }
+//   // }, [subscription]);
+
+//   const subscribeToPushWithEmail = useCallback(async (userEmail = null): Promise<PushSubscriptionResult> => {
+//     if (!isSupported) {
+//       return {
+//         success: false,
+//         error: 'Push notifications are not supported in this browser'
+//       };
+//     }
+  
+//     setIsLoading(true);
+//     try {
+//       const permissionResult = await Notification.requestPermission();
+//       setPermission(permissionResult);
+  
+//       if (permissionResult !== 'granted') {
+//         throw new Error('Permission not granted for notifications');
+//       }
+  
+//       const registration = await navigator.serviceWorker.register('/sw.js');
+      
+//       const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+//       if (!vapidPublicKey) {
+//         throw new Error('VAPID public key is not configured');
+//       }
+  
+//       const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
+      
+//       const sub = await registration.pushManager.subscribe({
+//         userVisibleOnly: true,
+//         applicationServerKey: applicationServerKey
+//       });
+  
+//       setSubscription(sub);
+//       setIsSubscribed(true);
+  
+//       const serializedSub = {
+//         endpoint: sub.endpoint,
+//         keys: {
+//           auth: arrayBufferToBase64(sub.getKey('auth') as any),
+//           p256dh: arrayBufferToBase64(sub.getKey('p256dh') as any)
+//         }
+//       };
+  
+//       // Send subscription with user email if available
+//       await api.post('/push/subscribe', {
+//         subscription: serializedSub,
+//         userId: user?.id,
+//         userEmail: userEmail || user?.email
+//       });
+  
+//       console.log('Push subscription successful for:', userEmail || user?.email);
+  
+//       return { success: true };
+  
+//     } catch (error) {
+//       console.error('Error subscribing to push:', error);
+//       let message = 'Failed to subscribe to push notifications';
+//       if (error instanceof Error) {
+//         if (error.message.includes('Permission not granted')) {
+//           message = 'Please allow notifications in your browser settings';
+//         }
+//       }
+//       return { success: false, error: message };
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   }, [isSupported, user]);
+
+
+
+//   useEffect(() => {
+//     if ('serviceWorker' in navigator && 'PushManager' in window) {
+//       setIsSupported(true);
+//       checkPermission();
+//       checkSubscription();
+//     }
+//   }, []);
+
 //   const checkPermission = useCallback(() => {
+//     if (!('Notification' in window)) return;
 //     setPermission(Notification.permission);
 //   }, []);
 
@@ -349,19 +860,7 @@
 //     }
 //   }, [isSupported]);
 
-//   const requestPermission = useCallback(async (): Promise<boolean> => {
-//     if (!isSupported) return false;
-
-//     try {
-//       const result = await Notification.requestPermission();
-//       setPermission(result);
-//       return result === 'granted';
-//     } catch (error) {
-//       console.error('Error requesting permission:', error);
-//       return false;
-//     }
-//   }, [isSupported]);
-
+//   // Fixed subscribe function with proper type handling
 //   const subscribeToPush = useCallback(async (): Promise<PushSubscriptionResult> => {
 //     if (!isSupported) {
 //       return {
@@ -372,31 +871,16 @@
 
 //     setIsLoading(true);
 //     try {
-//       // Ensure we have permission first
-//       if (permission !== 'granted') {
-//         const granted = await requestPermission();
-//         if (!granted) {
-//           throw new Error('Permission not granted for notifications');
-//         }
+//       const permissionResult = await Notification.requestPermission();
+//       setPermission(permissionResult);
+
+//       // Allow 'default' permission to proceed (browser might prompt later)
+//       if (permissionResult === 'denied') {
+//         throw new Error('Permission denied for notifications');
 //       }
 
-//       // Register service worker if not already registered
-//       let registration;
-//       try {
-//         registration = await navigator.serviceWorker.getRegistration();
-//         if (!registration) {
-//           registration = await navigator.serviceWorker.register('/sw.js', {
-//             scope: '/'
-//           });
-//           console.log('Service Worker registered:', registration);
-//         }
-//       } catch (swError) {
-//         console.error('Service Worker registration failed:', swError);
-//         throw new Error('Service Worker registration failed');
-//       }
-
-//       // Ensure service worker registration is valid
-
+//       const registration = await navigator.serviceWorker.register('/sw.js');
+      
 //       const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
 //       if (!vapidPublicKey) {
 //         throw new Error('VAPID public key is not configured');
@@ -404,17 +888,16 @@
 
 //       const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
       
-//       // Subscribe to push
+//       // Fixed: Use the Uint8Array directly - it should be compatible
 //       const sub = await registration.pushManager.subscribe({
 //         userVisibleOnly: true,
-//         applicationServerKey: applicationServerKey as any
+//         applicationServerKey: applicationServerKey
 //       });
 
 //       setSubscription(sub);
 //       setIsSubscribed(true);
 
-//       // Send subscription to backend
-//       const serializedSub = {
+//       const serializedSub: PushSubscriptionData = {
 //         endpoint: sub.endpoint,
 //         keys: {
 //           auth: arrayBufferToBase64(sub.getKey('auth') as ArrayBuffer),
@@ -427,7 +910,6 @@
 //         userId: user?.id
 //       });
 
-//       console.log('Push subscription successful');
 //       return { success: true };
 
 //     } catch (error) {
@@ -435,14 +917,12 @@
       
 //       let message = 'Failed to subscribe to push notifications';
 //       if (error instanceof Error) {
-//         if (error.message.includes('Permission not granted')) {
+//         if (error.message.includes('Permission denied')) {
 //           message = 'Please allow notifications in your browser settings';
 //         } else if (error.message.includes('not supported')) {
 //           message = 'Push notifications are not supported in this browser';
 //         } else if (error.message.includes('VAPID public key')) {
 //           message = 'Push notifications are not properly configured';
-//         } else if (error.message.includes('Service Worker')) {
-//           message = 'Service Worker registration failed. Please try again.';
 //         }
 //       }
       
@@ -450,7 +930,72 @@
 //     } finally {
 //       setIsLoading(false);
 //     }
-//   }, [isSupported, permission, requestPermission, user]);
+//   }, [isSupported, user]);
+
+//   // Alternative approach if the above still has issues
+//   const subscribeToPushAlternative = useCallback(async (): Promise<PushSubscriptionResult> => {
+//     if (!isSupported) {
+//       return {
+//         success: false,
+//         error: 'Push notifications are not supported in this browser'
+//       };
+//     }
+
+//     setIsLoading(true);
+//     try {
+//       const permissionResult = await Notification.requestPermission();
+//       setPermission(permissionResult);
+
+//       if (permissionResult === 'denied') {
+//         throw new Error('Permission denied for notifications');
+//       }
+
+//       const registration = await navigator.serviceWorker.register('/sw.js');
+      
+//       const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+//       if (!vapidPublicKey) {
+//         throw new Error('VAPID public key is not configured');
+//       }
+
+//       // Alternative: Use string format instead of Uint8Array
+//       const sub = await registration.pushManager.subscribe({
+//         userVisibleOnly: true,
+//         applicationServerKey: vapidPublicKey
+//       });
+
+//       setSubscription(sub);
+//       setIsSubscribed(true);
+
+//       const serializedSub: PushSubscriptionData = {
+//         endpoint: sub.endpoint,
+//         keys: {
+//           auth: arrayBufferToBase64(sub.getKey('auth') as ArrayBuffer),
+//           p256dh: arrayBufferToBase64(sub.getKey('p256dh') as ArrayBuffer)
+//         }
+//       };
+
+//       await api.post('/push/subscribe', {
+//         subscription: serializedSub,
+//         userId: user?.id
+//       });
+
+//       return { success: true };
+
+//     } catch (error) {
+//       console.error('Error subscribing to push:', error);
+      
+//       let message = 'Failed to subscribe to push notifications';
+//       if (error instanceof Error) {
+//         if (error.message.includes('Permission denied')) {
+//           message = 'Please allow notifications in your browser settings';
+//         }
+//       }
+      
+//       return { success: false, error: message };
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   }, [isSupported, user]);
 
 //   const unsubscribeFromPush = useCallback(async (): Promise<PushSubscriptionResult> => {
 //     if (!subscription) {
@@ -463,14 +1008,13 @@
 //     setIsLoading(true);
 //     try {
 //       await subscription.unsubscribe();
-      
-//       // Remove from backend
+//       setSubscription(null);
+//       setIsSubscribed(false);
+
+//       // Remove subscription from backend
 //       await api.post('/push/unsubscribe', {
 //         endpoint: subscription.endpoint
 //       });
-
-//       setSubscription(null);
-//       setIsSubscribed(false);
 
 //       return { success: true };
 
@@ -485,31 +1029,26 @@
 //     }
 //   }, [subscription]);
 
+//   const requestPermissionAndSubscribe = useCallback(async (): Promise<PushSubscriptionResult> => {
+//     return await subscribeToPush();
+//   }, [subscribeToPush]);
+
+  
+
 //   return {
 //     isSupported,
 //     isSubscribed,
 //     isLoading,
 //     permission,
 //     subscription,
-//     subscribeToPush,
+//     subscribeToPush: requestPermissionAndSubscribe,
 //     unsubscribeFromPush,
 //     requestPermission,
 //     checkSubscription,
-//     checkPermission
+//     checkPermission,
+//     subscribeToPushWithEmail,
 //   };
-// function urlBase64ToUint8Array(base64String: string): Uint8Array {
-//   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-//   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-//   const rawData = window.atob(base64);
-//   const outputArray = new Uint8Array(rawData.length);
-
-//   for (let i = 0; i < rawData.length; ++i) {
-//     outputArray[i] = rawData.charCodeAt(i);
-//   }
-//   return outputArray;
-// }
-
-
+// };
 // function arrayBufferToBase64(buffer: ArrayBuffer): string {
 //   const bytes = new Uint8Array(buffer);
 //   let binary = '';
@@ -518,321 +1057,20 @@
 //   }
 //   return window.btoa(binary);
 // }
-// // Removed duplicate implementation of urlBase64ToUint8Array
-// }
 
-// hooks/usePushNotifications.ts
+// hooks/usePushNotifications-simple.ts
+'use client';
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import api from '../services/api';
-// import {  arrayBufferToBase64 } from '@/app/utils/push-utils';
 
-
-function urlBase64ToUint8Array(base64String: string): Uint8Array {
-  const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-  const rawData = window.atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
-  
-  for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
-  }
-  return outputArray;
-}
-
-// types/push-notifications.ts
-export interface PushSubscriptionKeys {
-  auth: string;
-  p256dh: string;
-}
-
-export interface PushSubscriptionData {
-  endpoint: string;
-  keys: PushSubscriptionKeys;
-}
-
-export interface PushSubscriptionResult {
-  success: boolean;
-  error?: string;
-}
-
-// export interface UsePushNotificationsReturn {
-//   isSupported: boolean;
-//   isSubscribed: boolean;
-//   isLoading: boolean;
-//   permission: NotificationPermission;
-//   subscription: PushSubscription | null;
-//   subscribeToPush: () => Promise<PushSubscriptionResult>;
-//   unsubscribeFromPush: () => Promise<PushSubscriptionResult>;
-//   requestPermission: () => Promise<boolean>;
-//   checkSubscription: () => Promise<void>;
-//   checkPermission: () => void;
-// }
-
-interface UsePushNotificationsReturn {
-  isSupported: boolean;
-  isSubscribed: boolean;
-  isLoading: boolean;
-  permission: NotificationPermission;
-  subscription: PushSubscription | null;
-  subscribeToPush: () => Promise<PushSubscriptionResult>;
-  unsubscribeFromPush: () => Promise<PushSubscriptionResult>;
-  requestPermission: () => Promise<boolean>;
-  checkSubscription: () => Promise<void>;
-  checkPermission: () => void;
-  subscribeToPushWithEmail: () => Promise<PushSubscriptionResult>;
-}
-
-export const usePushNotifications = (): UsePushNotificationsReturn => {
+export const usePushNotifications = () => {
   const { user } = useAuth();
-  const [isSupported, setIsSupported] = useState<boolean>(false);
-  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
+  const [isSupported, setIsSupported] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const [subscription, setSubscription] = useState<PushSubscription | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [permission, setPermission] = useState<NotificationPermission>('default');
-
-  // Check browser support
-  useEffect(() => {
-    const checkSupport = () => {
-      const supported = 
-        'serviceWorker' in navigator && 
-        'PushManager' in window && 
-        'Notification' in window;
-      
-      setIsSupported(supported);
-      
-      if (supported) {
-        checkPermission();
-        checkSubscription();
-      }
-    };
-
-    checkSupport();
-  }, []);
-
-  // const checkPermission = useCallback(() => {
-  //   setPermission(Notification.permission);
-  // }, []);
-
-  // const checkSubscription = useCallback(async (): Promise<void> => {
-  //   if (!isSupported) return;
-
-  //   try {
-  //     const registration = await navigator.serviceWorker.ready;
-  //     const sub = await registration.pushManager.getSubscription();
-  //     setSubscription(sub);
-  //     setIsSubscribed(!!sub);
-  //   } catch (error) {
-  //     console.error('Error checking subscription:', error);
-  //   }
-  // }, [isSupported]);
-
-  const requestPermission = useCallback(async (): Promise<boolean> => {
-    if (!isSupported) return false;
-
-    try {
-      const result = await Notification.requestPermission();
-      setPermission(result);
-      return result === 'granted';
-    } catch (error) {
-      console.error('Error requesting permission:', error);
-      return false;
-    }
-  }, [isSupported]);
-
-  // const subscribeToPush = useCallback(async (): Promise<PushSubscriptionResult> => {
-  //   if (!isSupported) {
-  //     return {
-  //       success: false,
-  //       error: 'Push notifications are not supported in this browser'
-  //     };
-  //   }
-
-  //   setIsLoading(true);
-  //   try {
-  //     // Ensure we have permission first
-  //     if (permission !== 'granted') {
-  //       const granted = await requestPermission();
-  //       if (!granted) {
-  //         throw new Error('Permission not granted for notifications');
-  //       }
-  //     }
-
-  //     // Register service worker if not already registered
-  //     let registration;
-  //     try {
-  //       registration = await navigator.serviceWorker.getRegistration();
-  //       if (!registration) {
-  //         registration = await navigator.serviceWorker.register('/sw.js', {
-  //           scope: '/'
-  //         });
-  //         console.log('Service Worker registered:', registration);
-  //       }
-  //     } catch (swError) {
-  //       console.error('Service Worker registration failed:', swError);
-  //       throw new Error('Service Worker registration failed');
-  //     }
-
-  //     // Wait for service worker to be ready
-  //     // await registration.ready;
-  //     registration = await navigator.serviceWorker.ready;
-
-  //     const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-  //     if (!vapidPublicKey) {
-  //       throw new Error('VAPID public key is not configured');
-  //     }
-
-  //     const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
-      
-  //     // Subscribe to push
-  //     const sub = await registration.pushManager.subscribe({
-  //       userVisibleOnly: true,
-  //       applicationServerKey: applicationServerKey as any
-  //     });
-
-  //     setSubscription(sub);
-  //     setIsSubscribed(true);
-
-  //     // Send subscription to backend
-  //     const serializedSub = {
-  //       endpoint: sub.endpoint,
-  //       keys: {
-  //         auth: arrayBufferToBase64(sub.getKey('auth') as ArrayBuffer),
-  //         p256dh: arrayBufferToBase64(sub.getKey('p256dh') as ArrayBuffer)
-  //       }
-  //     };
-
-  //     await api.post('/push/subscribe', {
-  //       subscription: serializedSub,
-  //       userId: user?.id
-  //     });
-
-  //     console.log('Push subscription successful');
-  //     return { success: true };
-
-  //   } catch (error) {
-  //     console.error('Error subscribing to push:', error);
-      
-  //     let message = 'Failed to subscribe to push notifications';
-  //     if (error instanceof Error) {
-  //       if (error.message.includes('Permission not granted')) {
-  //         message = 'Please allow notifications in your browser settings';
-  //       } else if (error.message.includes('not supported')) {
-  //         message = 'Push notifications are not supported in this browser';
-  //       } else if (error.message.includes('VAPID public key')) {
-  //         message = 'Push notifications are not properly configured';
-  //       } else if (error.message.includes('Service Worker')) {
-  //         message = 'Service Worker registration failed. Please try again.';
-  //       }
-  //     }
-      
-  //     return { success: false, error: message };
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }, [isSupported, permission, requestPermission, user]);
-
-  // const unsubscribeFromPush = useCallback(async (): Promise<PushSubscriptionResult> => {
-  //   if (!subscription) {
-  //     return {
-  //       success: false,
-  //       error: 'No active subscription found'
-  //     };
-  //   }
-
-  //   setIsLoading(true);
-  //   try {
-  //     await subscription.unsubscribe();
-      
-  //     // Remove from backend
-  //     await api.post('/api/push/unsubscribe', {
-  //       endpoint: subscription.endpoint
-  //     });
-
-  //     setSubscription(null);
-  //     setIsSubscribed(false);
-
-  //     return { success: true };
-
-  //   } catch (error) {
-  //     console.error('Error unsubscribing from push:', error);
-  //     return { 
-  //       success: false, 
-  //       error: 'Failed to unsubscribe from push notifications' 
-  //     };
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }, [subscription]);
-
-  const subscribeToPushWithEmail = useCallback(async (userEmail = null): Promise<PushSubscriptionResult> => {
-    if (!isSupported) {
-      return {
-        success: false,
-        error: 'Push notifications are not supported in this browser'
-      };
-    }
-  
-    setIsLoading(true);
-    try {
-      const permissionResult = await Notification.requestPermission();
-      setPermission(permissionResult);
-  
-      if (permissionResult !== 'granted') {
-        throw new Error('Permission not granted for notifications');
-      }
-  
-      const registration = await navigator.serviceWorker.register('/sw.js');
-      
-      const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-      if (!vapidPublicKey) {
-        throw new Error('VAPID public key is not configured');
-      }
-  
-      const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
-      
-      const sub = await registration.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: applicationServerKey
-      });
-  
-      setSubscription(sub);
-      setIsSubscribed(true);
-  
-      const serializedSub = {
-        endpoint: sub.endpoint,
-        keys: {
-          auth: arrayBufferToBase64(sub.getKey('auth') as any),
-          p256dh: arrayBufferToBase64(sub.getKey('p256dh') as any)
-        }
-      };
-  
-      // Send subscription with user email if available
-      await api.post('/push/subscribe', {
-        subscription: serializedSub,
-        userId: user?.id,
-        userEmail: userEmail || user?.email
-      });
-  
-      console.log('Push subscription successful for:', userEmail || user?.email);
-  
-      return { success: true };
-  
-    } catch (error) {
-      console.error('Error subscribing to push:', error);
-      let message = 'Failed to subscribe to push notifications';
-      if (error instanceof Error) {
-        if (error.message.includes('Permission not granted')) {
-          message = 'Please allow notifications in your browser settings';
-        }
-      }
-      return { success: false, error: message };
-    } finally {
-      setIsLoading(false);
-    }
-  }, [isSupported, user]);
-
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [permission, setPermission] = useState('default');
 
   useEffect(() => {
     if ('serviceWorker' in navigator && 'PushManager' in window) {
@@ -847,93 +1085,20 @@ export const usePushNotifications = (): UsePushNotificationsReturn => {
     setPermission(Notification.permission);
   }, []);
 
-  const checkSubscription = useCallback(async (): Promise<void> => {
+  const checkSubscription = useCallback(async () => {
     if (!isSupported) return;
 
     try {
       const registration = await navigator.serviceWorker.ready;
       const sub = await registration.pushManager.getSubscription();
-      setSubscription(sub);
+      setSubscription(sub as any);
       setIsSubscribed(!!sub);
     } catch (error) {
       console.error('Error checking subscription:', error);
     }
   }, [isSupported]);
 
-  // Fixed subscribe function with proper type handling
-  const subscribeToPush = useCallback(async (): Promise<PushSubscriptionResult> => {
-    if (!isSupported) {
-      return {
-        success: false,
-        error: 'Push notifications are not supported in this browser'
-      };
-    }
-
-    setIsLoading(true);
-    try {
-      const permissionResult = await Notification.requestPermission();
-      setPermission(permissionResult);
-
-      // Allow 'default' permission to proceed (browser might prompt later)
-      if (permissionResult === 'denied') {
-        throw new Error('Permission denied for notifications');
-      }
-
-      const registration = await navigator.serviceWorker.register('/sw.js');
-      
-      const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-      if (!vapidPublicKey) {
-        throw new Error('VAPID public key is not configured');
-      }
-
-      const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
-      
-      // Fixed: Use the Uint8Array directly - it should be compatible
-      const sub = await registration.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: applicationServerKey
-      });
-
-      setSubscription(sub);
-      setIsSubscribed(true);
-
-      const serializedSub: PushSubscriptionData = {
-        endpoint: sub.endpoint,
-        keys: {
-          auth: arrayBufferToBase64(sub.getKey('auth') as ArrayBuffer),
-          p256dh: arrayBufferToBase64(sub.getKey('p256dh') as ArrayBuffer)
-        }
-      };
-
-      await api.post('/push/subscribe', {
-        subscription: serializedSub,
-        userId: user?.id
-      });
-
-      return { success: true };
-
-    } catch (error) {
-      console.error('Error subscribing to push:', error);
-      
-      let message = 'Failed to subscribe to push notifications';
-      if (error instanceof Error) {
-        if (error.message.includes('Permission denied')) {
-          message = 'Please allow notifications in your browser settings';
-        } else if (error.message.includes('not supported')) {
-          message = 'Push notifications are not supported in this browser';
-        } else if (error.message.includes('VAPID public key')) {
-          message = 'Push notifications are not properly configured';
-        }
-      }
-      
-      return { success: false, error: message };
-    } finally {
-      setIsLoading(false);
-    }
-  }, [isSupported, user]);
-
-  // Alternative approach if the above still has issues
-  const subscribeToPushAlternative = useCallback(async (): Promise<PushSubscriptionResult> => {
+  const subscribeToPush = useCallback(async () => {
     if (!isSupported) {
       return {
         success: false,
@@ -957,20 +1122,21 @@ export const usePushNotifications = (): UsePushNotificationsReturn => {
         throw new Error('VAPID public key is not configured');
       }
 
-      // Alternative: Use string format instead of Uint8Array
+      // Simple approach - use the string directly
       const sub = await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: vapidPublicKey
       });
 
-      setSubscription(sub);
+      setSubscription(sub as any);
       setIsSubscribed(true);
 
-      const serializedSub: PushSubscriptionData = {
+      // Serialize the subscription
+      const serializedSub = {
         endpoint: sub.endpoint,
         keys: {
-          auth: arrayBufferToBase64(sub.getKey('auth') as ArrayBuffer),
-          p256dh: arrayBufferToBase64(sub.getKey('p256dh') as ArrayBuffer)
+          auth: arrayBufferToBase64(sub.getKey('auth')),
+          p256dh: arrayBufferToBase64(sub.getKey('p256dh'))
         }
       };
 
@@ -997,7 +1163,7 @@ export const usePushNotifications = (): UsePushNotificationsReturn => {
     }
   }, [isSupported, user]);
 
-  const unsubscribeFromPush = useCallback(async (): Promise<PushSubscriptionResult> => {
+  const unsubscribeFromPush = useCallback(async () => {
     if (!subscription) {
       return {
         success: false,
@@ -1011,7 +1177,6 @@ export const usePushNotifications = (): UsePushNotificationsReturn => {
       setSubscription(null);
       setIsSubscribed(false);
 
-      // Remove subscription from backend
       await api.post('/push/unsubscribe', {
         endpoint: subscription.endpoint
       });
@@ -1029,27 +1194,20 @@ export const usePushNotifications = (): UsePushNotificationsReturn => {
     }
   }, [subscription]);
 
-  const requestPermissionAndSubscribe = useCallback(async (): Promise<PushSubscriptionResult> => {
-    return await subscribeToPush();
-  }, [subscribeToPush]);
-
-  
-
   return {
     isSupported,
     isSubscribed,
     isLoading,
     permission,
     subscription,
-    subscribeToPush: requestPermissionAndSubscribe,
+    subscribeToPush,
     unsubscribeFromPush,
-    requestPermission,
     checkSubscription,
-    checkPermission,
-    subscribeToPushWithEmail,
+    checkPermission
   };
 };
-function arrayBufferToBase64(buffer: ArrayBuffer): string {
+
+function arrayBufferToBase64(buffer:any) {
   const bytes = new Uint8Array(buffer);
   let binary = '';
   for (let i = 0; i < bytes.byteLength; i++) {

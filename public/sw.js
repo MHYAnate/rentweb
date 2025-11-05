@@ -375,23 +375,42 @@ self.addEventListener('notificationclick', function(event) {
 });
 
 // Handle push subscription changes
-self.addEventListener('pushsubscriptionchange', function(event) {
-  console.log('Push subscription changed');
+// self.addEventListener('pushsubscriptionchange', function(event) {
+//   console.log('Push subscription changed');
+//   event.waitUntil(
+//     self.registration.pushManager.subscribe({
+//       userVisibleOnly: true,
+//       applicationServerKey: urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY)
+//     }).then(function(newSubscription) {
+//       return fetch('/push/resubscribe', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({
+//           oldSubscription: event.oldSubscription,
+//           newSubscription: newSubscription
+//         })
+//       });
+//     }).catch(error => {
+//       console.error('Error resubscribing:', error);
+//     })
+//   );
+// });
+
+// public/sw.js - Update the pushsubscriptionchange event
+self.addEventListener('pushsubscriptionchange', function (event) {
   event.waitUntil(
     self.registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY)
-    }).then(function(newSubscription) {
+      applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY // Use string directly
+    }).then(function (subscription) {
       return fetch('/push/resubscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           oldSubscription: event.oldSubscription,
-          newSubscription: newSubscription
+          newSubscription: subscription
         })
       });
-    }).catch(error => {
-      console.error('Error resubscribing:', error);
     })
   );
 });
