@@ -48,22 +48,8 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      {/* <section className=" text-white bg-amber-500">
-   <PremiumCarousel/>
-      </section> */}
-      <Hero filters={filters} setFilters={setFilters} handleSearch={handleSearch}/>
 
-      {/* Search Section */}
-      {/* <section className="py-12 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SearchFilters
-            filters={filters}
-            onFiltersChange={setFilters}
-            onSearch={handleSearch}
-          />
-        </div>
-      </section> */}
+      <Hero filters={filters} setFilters={setFilters} handleSearch={handleSearch}/>
 
       {/* Featured Properties */}
       {featuredProperties && featuredProperties.length > 0 && (
