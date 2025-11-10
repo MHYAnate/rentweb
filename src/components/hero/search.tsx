@@ -47,14 +47,6 @@ export default function SearchCTO({ filters, setFilters, handleSearch }: SearchC
 	return (
 		<div className={styles.card}>
 			<div className="w-full">
-				{/* <div className="grid w-full grid-cols-2 mb-4 gap-x-2">
-					<button className="inline-flex h-9 items-center justify-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition-all duration-300 ease-in-out transform hover:scale-102 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 overflow-hidden">
-						Rent
-					</button>
-					<button className="inline-flex h-9 items-center justify-center rounded-md hover:bg-slate-300 px-4 py-2 text-sm font-medium text-gray-700 transition-all duration-300 ease-in-out transform hover:scale-102 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 overflow-hidden">
-						Buy
-					</button>
-				</div> */}
 				<div className="flex flex-col sm:flex-row gap-3">
 					<div className="relative flex-1">
 						<svg
