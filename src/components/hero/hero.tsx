@@ -34,7 +34,7 @@ export default function Hero({
   {/* Foreground content */}
   <div className="relative z-10 container mx-auto min-h-[600px] px-4">
 
-    <div className="absolute bottom-0 left-0 w-full lg:w-2/3 mx-auto space-y-6 flex flex-col px-4 pb-10">
+    <div className="absolute bottom-0 left-0 w-full sm:bottom-0 sm:px-0 lg:w-2/3 mx-auto space-y-6 flex flex-col px-4 pb-10">
   <SearchCTO
     filters={filters}
     setFilters={setFilters}
