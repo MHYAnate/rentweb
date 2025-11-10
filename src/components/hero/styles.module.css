@@ -1,0 +1,44 @@
+.card {
+  display: block;
+  background-color: white;
+  position: relative;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@property --angle{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.card::after, .card::before{
+  content: "";
+  position: absolute;
+  height: calc(100% + 5px);
+  width:  calc(100% + 5px);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  padding: 25px;
+  border-radius: 10px;
+  /* background-image: conic-gradient(#ff4545, #00ff99, #006aff,#ff0095, #ff4545); */
+  background-image: conic-gradient(from var(--angle),transparent 50%, #00ff99);
+  animation: 3s spin linear infinite;
+}
+
+.card::before{
+  filter: blur(1.5rem);
+  opacity: 0.5;
+}
+
+@keyframes spin {
+  from{
+    --angle:0deg;
+  }
+  to{
+    --angle:360deg;
+  }
+}

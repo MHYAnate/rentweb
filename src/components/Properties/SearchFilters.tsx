@@ -65,7 +65,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   ).length;
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+    <div className=" rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
       {/* Search Bar */}
       <form onSubmit={handleSearchSubmit} className="relative mb-4">
         <div className="relative">

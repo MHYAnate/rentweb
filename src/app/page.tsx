@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { PremiumCarousel } from '@/components/carousel/carousel';
 import { useAllUsers } from '@/hooks/useAdmin';
+import Hero from '@/components/hero/hero';
 
 const HomePage: React.FC = () => {
   const [filters, setFilters] = useState({});
@@ -48,12 +49,13 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className=" text-white bg-amber-500">
+      {/* <section className=" text-white bg-amber-500">
    <PremiumCarousel/>
-      </section>
+      </section> */}
+      <Hero filters={filters} setFilters={setFilters} handleSearch={handleSearch}/>
 
       {/* Search Section */}
-      <section className="py-12 bg-gray-50">
+      {/* <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SearchFilters
             filters={filters}
@@ -61,7 +63,7 @@ const HomePage: React.FC = () => {
             onSearch={handleSearch}
           />
         </div>
-      </section>
+      </section> */}
 
       {/* Featured Properties */}
       {featuredProperties && featuredProperties.length > 0 && (

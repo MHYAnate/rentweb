@@ -7,7 +7,7 @@ import Image from "next/image";
 
 interface CarouselSlide {
 	id: number;
-	title: string;
+	title?: string;
 	subtitle?: string;
 	description?: string;
 	primaryCTA?: string;
@@ -19,31 +19,31 @@ interface CarouselSlide {
 const slides: CarouselSlide[] = [
 	{
 		id: 1,
-		title: "Premium Real Estate at Your Fingertips",
-		primaryCTA: "Join Today",
-		secondaryCTA: "Login",
+		// title: "Premium Real Estate at Your Fingertips",
+		// primaryCTA: "Join Today",
+		// secondaryCTA: "Login",
 		image: "/image/p3.png",
 		imageAlt: "Luxury apartment interior",
 	},
 	{
 		id: 2,
-		title: "Manage with Confidence",
+		// title: "Manage with Confidence",
 		image: "/image/p2.png",
 		imageAlt: "Real estate analytics dashboard",
 	},
 	{
 		id: 3,
-		title: "24/7 Support Team",
-		primaryCTA: "Start Your Journey",
-		secondaryCTA: "Contact Us",
+		// title: "24/7 Support Team",
+		// primaryCTA: "Start Your Journey",
+		// secondaryCTA: "Contact Us",
 		image: "/image/p1.png",
 		imageAlt: "Modern house exterior",
 	},
 	{
 		id: 4,
-		title: "Join Our Community",
-		primaryCTA: "Sign Up Free",
-		secondaryCTA: "Resume",
+		// title: "Join Our Community",
+		// primaryCTA: "Sign Up Free",
+		// secondaryCTA: "Resume",
 		image: "/image/p4.png",
 		imageAlt: "Real estate professionals",
 	},
@@ -491,8 +491,8 @@ export function PremiumCarousel() {
 				))}
 			</div>
 
-			{/* Navigation Controls (No changes needed here) */}
-			<div
+			{/* Navigation Controls */}
+			{/* <div
 				style={{
 					position: "absolute",
 					bottom: "2rem",
@@ -562,8 +562,8 @@ export function PremiumCarousel() {
 						))}
 					</div>
 				</div>
-			</div>
-			<div
+			</div> */}
+			{/* <div
 				style={{
 					position: "absolute",
 					top: "2rem",
@@ -682,7 +682,7 @@ export function PremiumCarousel() {
 					</Button>
 				</div>
         </div>
-			</div>
+			</div> */}
 		</div>
 	);
 }
