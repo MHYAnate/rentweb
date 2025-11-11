@@ -131,7 +131,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
               {formatPrice(property.price, property.currency)}
             </span>
             {property.listingType === 'FOR_RENT' && (
-              <span className="text-gray-500 text-sm">/Year</span>
+              <span className="text-gray-500 text-sm">/year</span>
             )}
           </div>
 
