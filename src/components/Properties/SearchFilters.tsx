@@ -134,7 +134,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
         {/* --- UI Revamp: Advanced Filters Button --- */}
         <button
           onClick={() => setShowAdvancedFilters(true)}
-          className="flex-shrink-0 inline-flex items-center justify-center rounded-md bg-[#3B4B64] px-4 h-[46px] text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 relative"
+          className="flex-shrink-0 inline-flex items-center justify-center rounded-md bg-[#3B4B64] px-4 h-[46px] text-sm font-medium text-white shadow-sm hover:bg-[#C5A253] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 relative"
         >
           <Filter className="w-5 h-5" />
           {activeFiltersCount > 0 && (
@@ -223,7 +223,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
               <button onClick={clearFilters} className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400">
                 Clear All Filters
               </button>
-              <button onClick={() => setShowAdvancedFilters(false)} className="px-8 py-2.5 bg-[#3B4B64] text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button onClick={() => setShowAdvancedFilters(false)} className="px-8 py-2.5 bg-[#3B4B64] text-white font-semibold rounded-lg shadow-md hover:bg-[#C5A253] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Apply Filters
               </button>
             </div>
