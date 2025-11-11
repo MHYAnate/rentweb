@@ -32,7 +32,7 @@ const HomePage: React.FC = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3B4B64]"></div>
       </div>
     );
   }
@@ -68,7 +68,7 @@ const HomePage: React.FC = () => {
             <div className="mt-12 text-center">
               <Link
                 href="/featured?isFeatured=true"
-                className="inline-flex items-center justify-center rounded-md bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-200"
+                className="inline-flex items-center justify-center rounded-md bg-[#3B4B64] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#C5a243] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3B4B64] transition-all duration-200"
               >
                 View All Featured Properties
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -102,7 +102,7 @@ const HomePage: React.FC = () => {
               <div className="mt-12 text-center">
                 <Link
                   href="/properties"
-                  className="inline-flex items-center justify-center rounded-md bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-200"
+                  className="inline-flex items-center justify-center rounded-md bg-[#3B4B64] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#C5a243] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3B4B64] transition-all duration-200"
                 >
                   Explore All Properties
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -137,7 +137,7 @@ const HomePage: React.FC = () => {
                   href={`/properties?city=${encodeURIComponent(city.city)}`}
                   className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 text-center border border-gray-200"
                 >
-                  <MapPin className="w-8 h-8 text-indigo-600 mx-auto mb-3" />
+                  <MapPin className="w-8 h-8 text-[#3B4B64] mx-auto mb-3" />
                   <h3 className="font-semibold text-gray-900 mb-1">
                     {city.city}
                   </h3>

@@ -37,7 +37,7 @@
   padding: 25px;
   border-radius: 10px;
   /* background-image: conic-gradient(#ff4545, #00ff99, #006aff,#ff0095, #ff4545); */
-  background-image: conic-gradient(from var(--angle),transparent 50%, #00ff99);
+  background-image: conic-gradient(from var(--angle),transparent 50%, #D4AF37);
   animation: 3s spin linear infinite;
 }
 
