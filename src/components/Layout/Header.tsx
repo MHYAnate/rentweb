@@ -39,16 +39,8 @@ const Header: React.FC = () => {
 					},
 				]
 			: !isAuthenticated?[
-					{
-						label: "Properties",
-						href: "/properties",
-						icon: Home,
-					},
-				]:[	{
-					label: "Properties",
-					href: "/dashboard/propertiess",
-					icon: Home,
-				},]),
+					
+				]:[	]),
 	
 		...(isAuthenticated
 			? [

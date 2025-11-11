@@ -134,7 +134,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
         {/* --- UI Revamp: Advanced Filters Button --- */}
         <button
           onClick={() => setShowAdvancedFilters(true)}
-          className="flex-shrink-0 inline-flex items-center justify-center rounded-md bg-indigo-600 px-4 h-[46px] text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 relative"
+          className="flex-shrink-0 inline-flex items-center justify-center rounded-md bg-[#3B4B64] px-4 h-[46px] text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 relative"
         >
           <Filter className="w-5 h-5" />
           {activeFiltersCount > 0 && (
@@ -213,7 +213,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 
               {/* Featured Only Checkbox */}
               <div className="flex items-center justify-center pt-4">
-                <input type="checkbox" id="featured" checked={filters.isFeatured || false} onChange={(e) => handleFilterChange('isFeatured', e.target.checked || undefined)} className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"/>
+                <input type="checkbox" id="featured" checked={filters.isFeatured || false} onChange={(e) => handleFilterChange('isFeatured', e.target.checked || undefined)} className="w-4 h-4 text-[#3B4B64] border-gray-300 rounded focus:ring-indigo-500"/>
                 <label htmlFor="featured" className="ml-2 text-sm text-gray-700 dark:text-gray-300">Show Featured Only</label>
               </div>
             </div>
@@ -223,7 +223,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
               <button onClick={clearFilters} className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400">
                 Clear All Filters
               </button>
-              <button onClick={() => setShowAdvancedFilters(false)} className="px-8 py-2.5 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button onClick={() => setShowAdvancedFilters(false)} className="px-8 py-2.5 bg-[#3B4B64] text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Apply Filters
               </button>
             </div>
