@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import SearchCTO from "./search";
 import { PremiumCarousel } from "../carousel/carousel";
+import Link from "next/link";
 
 interface SearchCTOProps {
 	filters: any;
@@ -40,6 +41,18 @@ export default function Hero({
 
 
 </div>
+  <div className="flex flex-col sm:flex-row gap-4">
+    <Link href="/featured?isFeatured=true">
+      <button className="inline-flex h-10 items-center justify-center rounded-md bg-white px-8 py-2 text-sm font-medium text-black shadow hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 w-full sm:w-auto transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 overflow-hidden">
+        Browse Featured Properties
+      </button>
+    </Link>
+    <Link href="/properties">
+      <button className="inline-flex h-10 items-center justify-center rounded-md bg-white/20 hover:bg-white/30 border border-white/30 px-8 py-2 text-sm font-medium text-black shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 w-full sm:w-auto transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 overflow-hidden">
+        View All Properties
+      </button>
+    </Link>
+  </div>
   </div>
 
   {/* Animations */}
