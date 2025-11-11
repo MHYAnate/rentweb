@@ -430,7 +430,7 @@ export function PropertySidebar({ property }: PropertySidebarProps) {
 
           {property.listingType === 'FOR_RENT' && (
             <p className="text-sm text-gray-600">
-              Monthly rental • {property.currency}
+              Yearly rental • {property.currency}
             </p>
           )}
 
