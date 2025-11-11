@@ -1,9 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import styles from "./styles.module.css";
 import SearchCTO from "./search";
 import { PremiumCarousel } from "../carousel/carousel";
 
