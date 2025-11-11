@@ -53,7 +53,7 @@
 //         <h3 className="text-lg font-semibold text-gray-900">Filters</h3>
 //         <button
 //           onClick={resetFilters}
-//           className="text-sm text-blue-600 hover:text-blue-700"
+//           className="text-sm text-blue-600 hover:text-[#C5A253]"
 //         >
 //           Reset
 //         </button>
@@ -202,7 +202,7 @@
 
 //         <button
 //           onClick={applyFilters}
-//           className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
+//           className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-[#C5A253] transition-colors"
 //         >
 //           Apply Filters
 //         </button>
@@ -266,9 +266,9 @@ export function SearchFilters({ filters, onFiltersChange, onApplyFilters }: Sear
         <h3 className="text-lg font-semibold text-gray-900">Filters</h3>
         <button
           onClick={resetFilters}
-          className="text-sm text-blue-600 hover:text-blue-700"
+          className="text-sm text-[#3B4B64] hover:text-[#C5A253]"
         >
-          Reset
+          Reset 
         </button>
       </div>
 
@@ -409,7 +409,7 @@ export function SearchFilters({ filters, onFiltersChange, onApplyFilters }: Sear
 
         <button
           onClick={applyFilters}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          className="w-full bg-[#3B4B64] text-white py-2 rounded-lg hover:bg-[#C5A253] transition-colors"
         >
           Apply Filters
         </button>
