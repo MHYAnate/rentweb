@@ -79,7 +79,7 @@ export default function PropertyPage({
                 <p className="text-lg font-semibold text-blue-600">
                   {property.currency} {property.price.toLocaleString()}
                   <span className="text-sm font-normal text-gray-600 ml-1">
-                    {property.listingType === 'FOR_RENT' ? '/month' : ''}
+                    {property.listingType === 'FOR_RENT' ? '/year' : ''}
                   </span>
                 </p>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
