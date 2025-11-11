@@ -11,7 +11,7 @@ export default function InstallPWAButton() {
   return (
     <button
       onClick={handleInstall}
-      className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-[#C5A253] rounded-full text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 z-50"
+      className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-[#D4AF37] rounded-full text-white px-4 py-2  shadow-lg flex items-center gap-2 z-50"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
